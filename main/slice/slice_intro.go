@@ -39,8 +39,8 @@ import (
 	A slice is a descriptor of an array segment. It consists of a pointer to the array, the length of the segment,
 	and its capacity (the maximum length of the segment).
 
-	The length is the number of elements referred to by the slice.
-	The capacity is the number of elements in the underlying array
+	The "length" is the number of elements referred to by the slice.
+	The "capacity" is the number of elements in the underlying array
 	(beginning at the element referred to by the slice pointer)
 
 	Slicing does not copy the slice’s data. It creates a new slice value that points to the original array.

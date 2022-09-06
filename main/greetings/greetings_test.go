@@ -9,7 +9,7 @@ import (
 Test function names have the form TestName, where Name says something about the specific test.
 test functions take a pointer to the testing package's testing.T type as a parameter.
 
-run "go test" to executes the test in the directory where you want to test
+run "go test [-v]" to executes the test in the directory where you want to test
 */
 
 func TestHelloName(t *testing.T) {
