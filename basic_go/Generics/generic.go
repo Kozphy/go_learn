@@ -10,6 +10,6 @@ func Index[T comparable](s []T, x T) int {
 }
 
 type List[T any] struct {
-	next *List[T]
-	val  T
+	Next *List[T]
+	Val  T
 }

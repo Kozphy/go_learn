@@ -9,10 +9,12 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"example.com/hello"
 	generic "github.com/zixas/go_learn/Generics"
+	"github.com/zixas/go_learn/crawler"
 	functions "github.com/zixas/go_learn/func"
 	"github.com/zixas/go_learn/greetings"
 	_interface "github.com/zixas/go_learn/interface"
@@ -20,6 +22,7 @@ import (
 	"github.com/zixas/go_learn/methods"
 	pointers "github.com/zixas/go_learn/pointer"
 	"github.com/zixas/go_learn/slice"
+	"golang.org/x/tour/tree"
 	"rsc.io/quote"
 )
 
@@ -285,6 +288,7 @@ func main() {
 	s := strings.NewReader("Lbh penpxrq gur phqr!")
 	rot := &rot13Reader{s}
 	/*
+		func Copy(dst Writer, src Reader) (written int64, err error)
 		If src implements the WriterTo interface, the copy is implemented by calling src.WriteTo(dst).
 		Otherwise, if dst implements the ReaderFrom interface, the copy is implemented by calling dst.ReadFrom(src).
 	*/
@@ -314,6 +318,281 @@ func main() {
 
 	fmt.Println()
 	fmt.Println("Generic types")
+	var head = generic.List[any]{
+		Next: nil,
+		Val:  0,
+	}
+
+	head.Next = &generic.List[any]{
+		Next: nil,
+		Val:  "it linklist",
+	}
+
+	for n := &head; n != nil; n = n.Next {
+		fmt.Println(n.Val)
+	}
+	fmt.Println()
+	fmt.Println("Concurrency=========================")
+	fmt.Println("Goroutines")
+	/*
+		A goroutine is a lightweight thread managed by the Go runtime.
+		go f(x, y, z)
+
+		The evaluation of f, x, y, and z happens in the current goroutine and
+		the execution of f happens in the new goroutine.
+
+		Goroutines run in the same address space, so access to shared memory must be synchronized.
+	*/
+	go say("world")
+	say("hello")
+
+	fmt.Println()
+	fmt.Println("Channels")
+	/*
+		Channels are a typed conduit through which you can send and receive values with the channel operator, <-.
+	*/
+	sc := []int{7, 2, 8, -9, 4, 0}
+	// Like maps and slices, channels must be created before use:
+	ch := make(chan int)
+	go sum(sc[:len(sc)/2], ch)
+	go sum(sc[len(sc)/2:], ch)
+	// Receive from channel, and assign value to x, y
+	x, y := <-ch, <-ch
+	fmt.Println(x, y, x+y)
+
+	fmt.Println()
+	fmt.Println("Buffered Channels")
+	ch2 := make(chan int, 2)
+	ch2 <- 1
+	ch2 <- 2
+	// overfill, deadlock
+	// ch2 <- 3
+	fmt.Println(<-ch2)
+	fmt.Println(<-ch2)
+	// ok
+	ch2 <- 3
+	fmt.Println()
+	fmt.Println("Range and Close")
+	/*
+		A sender can close a channel to indicate that no more values will be sent.
+
+		Using ok-syntax can test whether a channel has been closed.
+		v, ok := <- ch
+		if there are no more values to receive and the channel is closed, ok is "false".
+
+		Note:  Channels aren't like files; you don't usually need to close them.
+		Closing is only necessary when the receiver must be told there are no more values coming
+		, such as to terminate a "range" loop.
+	*/
+	c_f := make(chan int, 10)
+	go fibonacci(cap(c_f), c_f)
+	// The loop receives values from channel repeatedly until it is closed.
+	for i := range c_f {
+		fmt.Println(i)
+	}
+
+	fmt.Println()
+	fmt.Println("Select")
+	/*
+		The select statement lets a goroutine wait on multiple communication operations.
+
+		A select blocks until one of its cases can run, then it executes that case. It chooses one at random if multiple are ready.
+	*/
+	c_s := make(chan int)
+	quit := make(chan int)
+
+	go func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println(<-c_s)
+		}
+		quit <- 0
+	}()
+	fibonacci2(c_s, quit)
+
+	fmt.Println()
+	fmt.Println("Default Selection")
+	default_selection()
+
+	fmt.Println()
+	fmt.Println("Exercise: Equivalent Binary Trees")
+	var ch3 = make(chan int)
+	go Walk(tree.New(1), ch3)
+	for {
+		v, ok := <-ch3
+		fmt.Println(v)
+		fmt.Println(ok)
+		if !ok {
+			fmt.Println("exit")
+			break
+		}
+	}
+	fmt.Println()
+	fmt.Println("Compare tree")
+	fmt.Println(Same(tree.New(1), tree.New(1)))
+	fmt.Println(Same(tree.New(1), tree.New(2)))
+
+	fmt.Println()
+	fmt.Println("sync.Mutex")
+	c_safe := SafeCounter{v: make(map[string]int)}
+	for i := 0; i < 1000; i++ {
+		go c_safe.inc("somekey")
+	}
+	time.Sleep(time.Second)
+	fmt.Println(c_safe.Value("somekey"))
+
+	fmt.Println()
+	fmt.Println("Exercise: Web Crawler")
+	// fetcher is a populated fakeFetcher.
+	var fetcher = crawler.FakeFetcher{
+		"https://golang.org/": &crawler.FakeResult{
+			Body: "The Go Programming Language",
+			Urls: []string{
+				"https://golang.org/pkg/",
+				"https://golang.org/cmd/",
+			},
+		},
+		"https://golang.org/pkg/": &crawler.FakeResult{
+			Body: "Packages",
+			Urls: []string{
+				"https://golang.org/",
+				"https://golang.org/cmd/",
+				"https://golang.org/pkg/fmt/",
+				"https://golang.org/pkg/os/",
+			},
+		},
+		"https://golang.org/pkg/fmt/": &crawler.FakeResult{
+			Body: "Package fmt",
+			Urls: []string{
+				"https://golang.org/",
+				"https://golang.org/pkg/",
+			},
+		},
+		"https://golang.org/pkg/os/": &crawler.FakeResult{
+			Body: "Package os",
+			Urls: []string{
+				"https://golang.org/",
+				"https://golang.org/pkg/",
+			},
+		},
+	}
+	wg.Add(1)
+	var crawch = &crawler.SafeMapCache{V: make(map[string]bool)}
+	go crawler.Crawl("https://golang.org/", 4, fetcher, crawch, &wg)
+	wg.Wait()
+
+}
+
+var wg sync.WaitGroup
+
+type SafeCounter struct {
+	mu sync.Mutex
+	v  map[string]int
+}
+
+func (c *SafeCounter) inc(key string) {
+	c.mu.Lock()
+	c.v[key]++
+	c.mu.Unlock()
+}
+
+func (c *SafeCounter) Value(key string) int {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.v[key]
+}
+
+// Walk walks the tree t sending all values
+// from the tree to the channel ch.
+func Walk(t *tree.Tree, ch chan int) {
+	defer close(ch)
+	var walker func(t *tree.Tree)
+	walker = func(t *tree.Tree) {
+		if t == nil {
+			return
+		}
+		walker(t.Left)
+		ch <- t.Value
+		walker(t.Right)
+	}
+	walker(t)
+}
+
+// Same determines whether the trees
+// t1 and t2 contain the same values.
+func Same(t1, t2 *tree.Tree) bool {
+	ch1, ch2 := make(chan int), make(chan int)
+
+	go Walk(t1, ch1)
+	go Walk(t2, ch2)
+
+	for {
+		v1, ok1 := <-ch1
+		v2, ok2 := <-ch2
+
+		if v1 != v2 || ok1 != ok2 {
+			return false
+		}
+
+		// if identical tree will trigger following to break out infinite for loop
+		if !ok1 {
+			break
+		}
+
+	}
+	return true
+}
+
+func default_selection() {
+	tick := time.Tick(100 * time.Millisecond)
+	boom := time.After(500 * time.Millisecond)
+	for {
+		select {
+		case <-tick:
+			fmt.Println("tick")
+		case <-boom:
+			fmt.Println("BOOM!")
+			return
+		default:
+			fmt.Println("      .")
+			time.Sleep(50 * time.Millisecond)
+		}
+	}
+}
+func fibonacci2(c chan int, quit chan int) {
+	x, y := 0, 1
+	for {
+		select {
+		case c <- x:
+			x, y = y, x+y
+		case <-quit:
+			fmt.Println("quit")
+			return
+		}
+	}
+}
+
+func fibonacci(n int, c chan int) {
+	x, y := 0, 1
+	for i := 0; i < n; i++ {
+		c <- x
+		x, y = y, x+y
+	}
+	close(c)
+}
+
+func sum(s []int, c chan int) {
+	sum := 0
+	for _, v := range s {
+		sum += v
+	}
+	c <- sum // send sum to channel
+}
+
+func say(s string) {
+	for i := 0; i < 5; i++ {
+		time.Sleep(100 * time.Millisecond)
+		fmt.Println(s)
+	}
 }
 
 type rot13Reader struct {
