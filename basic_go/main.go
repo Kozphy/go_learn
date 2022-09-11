@@ -18,6 +18,7 @@ import (
 	functions "github.com/zixas/go_learn/func"
 	"github.com/zixas/go_learn/greetings"
 	_interface "github.com/zixas/go_learn/interface"
+	json "github.com/zixas/go_learn/json_and_go"
 	mapping "github.com/zixas/go_learn/map"
 	"github.com/zixas/go_learn/methods"
 	pointers "github.com/zixas/go_learn/pointer"
@@ -479,6 +480,29 @@ func main() {
 	var crawch = &crawler.SafeMapCache{V: make(map[string]bool)}
 	go crawler.Crawl("https://golang.org/", 4, fetcher, crawch, &wg)
 	wg.Wait()
+
+	fmt.Println()
+	fmt.Println("json and go")
+	json.Marshal_and_UnMarshal_test()
+
+	fmt.Println("UnMarshal_not_find===========")
+	json.UnMarshal_not_find()
+
+	fmt.Println()
+	fmt.Println("Generic_json_with_interface========")
+	json.Generic_json_with_interface()
+
+	fmt.Println()
+	fmt.Println("Decode_arbitrary_data========")
+	json.Decode_arbitrary_data()
+
+	fmt.Println()
+	fmt.Println("Reference_type==================")
+	json.Reference_types()
+
+	fmt.Println()
+	fmt.Println("Streaming_encoders_and_decoders==================")
+	json.Streaming_encoders_and_decoders()
 
 }
 
