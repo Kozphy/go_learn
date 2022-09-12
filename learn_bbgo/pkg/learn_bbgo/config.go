@@ -1,7 +1,6 @@
 package learn_bbgo
 
 import (
-	"fmt"
 	"os"
 
 	log "github.com/sirupsen/logrus"
@@ -25,12 +24,12 @@ type BuildConfig struct {
 }
 
 type Config struct {
-	Build *BuildConfig `json:"build,omitempty yaml:"build,omitempty"`
+	*BuildConfig `json:"buildConfig,omitempty" yaml:"buildConfig,omitempty"`
 
 	// Persistence *PersistenceConfig          `json:"persistence,omitempty" yaml:"persistence,omitempty"`
 	// Sessions    map[string]*ExchangeSession `json:"sessions,omitempty" yaml:"sessions,omitempty"`
-	ExchangeStrategies      []ExchangeStrategyMount `json:"-" yaml:"-"`
-	CrossExchangeStrategies []CrossExchangeStrategy `json:"-" yaml:"-"`
+	// ExchangeStrategies      []ExchangeStrategyMount `json:"-" yaml:"-"`
+	// CrossExchangeStrategies []CrossExchangeStrategy `json:"-" yaml:"-"`
 }
 
 type Stash map[string]interface{}
@@ -44,12 +43,12 @@ func loadStash(config []byte) (Stash, error) {
 }
 
 func loadExchangesStrategies(config *Config, stash Stash) (err error) {
-	exchangeStrategiesConfig, ok := stash["exchangeStrategies"]
+	// exchangeStrategiesConfig, ok := stash["exchangeStrategies"]
 	return nil
 }
 
 func loadCrossExchangeStrategies(config *Config, stash Stash) (err error) {
-	exchangeStrategiesConf, ok := stash["crossExchangeStrategies"]
+	// exchangeStrategiesConf, ok := stash["crossExchangeStrategies"]
 	return nil
 }
 
@@ -67,6 +66,19 @@ func Load(configFile string, loadStrategies bool) (*Config, error) {
 		return nil, err
 	}
 
+	// for backward compatible
+	if config.BuildConfig == nil {
+		config.BuildConfig = &BuildConfig{
+			BuildDir: "build",
+			Targets: []BuildTargetConfig{
+				{Name: "bbgow-amd64-darwin", Arch: "amd64", OS: "darwin"},
+				{Name: "bbgow-amd64-linux", Arch: "amd64", OS: "linux"},
+			},
+		}
+	}
+
+	log.Debug("config:", config)
+
 	stash, err := loadStash(content)
 
 	if loadStrategies {
@@ -78,7 +90,6 @@ func Load(configFile string, loadStrategies bool) (*Config, error) {
 			return nil, err
 		}
 	}
-	fmt.Println(config)
 
 	return &config, nil
 }

@@ -1,9 +1,11 @@
 package cmd
 
 import (
+	// "fmt"
+	"fmt"
 	"os"
-
-	// "runtime"
+	"path/filepath"
+	"runtime"
 
 	"github.com/joho/godotenv"
 	"github.com/pkg/errors"
@@ -27,7 +29,12 @@ func init() {
 	RootCmd.PersistentFlags().String("dotenv", ".env.local", "the dotenv file you want to load")
 
 	RootCmd.PersistentFlags().String("config", "config.yaml", "config file")
+	viper.AutomaticEnv()
 
+	if err := viper.BindPFlags(RootCmd.PersistentFlags()); err != nil {
+		log.WithError(err).Errorf("failed to bind persistent flags. please check the flag settings.")
+		return
+	}
 }
 
 var RootCmd = &cobra.Command{
@@ -40,8 +47,18 @@ var RootCmd = &cobra.Command{
 		}
 
 		if viper.GetBool("debug") {
-			log.Infof("debug mode is enabled")
+			log.Info("debug mode is enabled")
+			log.SetFormatter(&log.TextFormatter{
+				DisableTimestamp: true,
+				CallerPrettyfier: func(f *runtime.Frame) (function string, file string) {
+					funcname := filepath.Base(f.Function)
+					filename := filepath.Base(f.File)
+					return fmt.Sprintf("%s()", funcname), fmt.Sprintf("%s:%d", filename, f.Line)
+				},
+				PadLevelText: true,
+			})
 			log.SetLevel(log.DebugLevel)
+			log.SetReportCaller(true)
 		}
 
 		return cobraLoadConfig(cmd, args)
