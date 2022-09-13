@@ -4,10 +4,15 @@ import (
 	"context"
 	"errors"
 	"os"
+	"os/exec"
+	"path/filepath"
+	"syscall"
 
+	// "github.com/c9s/bbgo/pkg/server"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	flag "github.com/spf13/pflag"
+	"github.com/zixas/learn_bbgo/pkg/cmd/cmdutil"
 	"github.com/zixas/learn_bbgo/pkg/learn_bbgo"
 )
 
@@ -138,7 +143,7 @@ func run(cmd *cobra.Command, args []string) error {
 		if learn_bbgo.IsWrapperBinary {
 			log.Info("running wrappper binary...")
 		}
-
+		log.Debug("setup: ", setup)
 		// if setup {
 		// 	return runSetup(ctx, userConfig, true)
 		// }
@@ -160,5 +165,47 @@ func runWrapperBinary(ctx context.Context, cmd *cobra.Command, userConfig *learn
 	})
 	runArgs = append(runArgs, args...)
 	log.Debug("runArgs: ", runArgs)
+	os.Exit(1)
+	runCmd, err := buildAndRun(ctx, userConfig, runArgs...)
+	if err != nil {
+		return err
+	}
+	if sig := cmdutil.WaitForSignal(ctx, syscall.SIGTERM, syscall.SIGINT); sig != nil {
+		log.Info("sending signal to the child process...")
+		if err := runCmd.Process.Signal(sig); err != nil {
+			return err
+		}
+
+		if err := runCmd.Wait(); err != nil {
+			return err
+		}
+	}
 	return nil
+}
+
+func buildAndRun(ctx context.Context, userConfig *learn_bbgo.Config, args ...string) (*exec.Cmd, error) {
+	packageDir, err := os.MkdirTemp("build", "bbgow")
+	if err != nil {
+		return nil, err
+	}
+
+	defer os.RemoveAll(packageDir)
+
+	targetConfig := learn_bbgo.GetNativeBuildTargetConfig()
+	binary, err := learn_bbgo.Build(ctx, userConfig, targetConfig)
+	if err != nil {
+		return nil, err
+	}
+
+	cwd, err := os.Getwd()
+	if err != nil {
+		return nil, err
+	}
+
+	executePath := filepath.Join(cwd, binary)
+	runCmd := exec.Command(executePath, args...)
+	runCmd.Stdout = os.Stdout
+	runCmd.Stderr = os.Stderr
+	return runCmd, runCmd.Start()
+
 }
