@@ -12,8 +12,8 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	flag "github.com/spf13/pflag"
-	"github.com/zixas/learn_bbgo/pkg/cmd/cmdutil"
-	"github.com/zixas/learn_bbgo/pkg/learn_bbgo"
+	"github.com/zixsa/learn_bbgo/pkg/cmd/cmdutil"
+	"github.com/zixsa/learn_bbgo/pkg/learn_bbgo"
 )
 
 var RunCmd = &cobra.Command{

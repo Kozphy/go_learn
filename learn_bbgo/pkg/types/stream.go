@@ -1,6 +1,11 @@
 package types
 
-import "context"
+import (
+	"context"
+	"sync"
+
+	"github.com/gorilla/websocket"
+)
 
 type Depth string
 type Speed string
@@ -28,6 +33,12 @@ type Stream interface {
 	Connect(ctx context.Context) error
 	Close() error
 }
+
+type Parser func(message []byte) (interface{}, error)
+
+type Dispatcher func(e interface{})
+
+type EndpointCreator func(ctx context.Context) (string, error)
 
 //go:generate callbackgen -type StandardStream -interface
 type StandardStream struct {

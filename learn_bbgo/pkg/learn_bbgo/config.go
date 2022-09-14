@@ -1,12 +1,16 @@
 package learn_bbgo
 
 import (
+	"encoding/json"
+	"fmt"
 	"os"
+	"reflect"
 	"runtime"
 
+	"github.com/k0kubun/pp/v3"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
-	"github.com/zixas/learn_bbgo/pkg/datatype"
+	"github.com/zixsa/learn_bbgo/pkg/datatype"
 	"gopkg.in/yaml.v3"
 )
 
@@ -44,6 +48,113 @@ type Config struct {
 	CrossExchangeStrategies []CrossExchangeStrategy `json:"-" yaml:"-"`
 }
 
+func reUnmarshal(conf interface{}, tpe interface{}) (interface{}, error) {
+	rt := reflect.TypeOf(tpe)
+	val := reflect.New(rt)
+	valRef := val.Interface()
+	plain, err := json.Marshal(conf)
+	if err != nil {
+		return nil, err
+	}
+	if err := json.Unmarshal(plain, valRef); err != nil {
+		return nil, errors.Wrapf(err, "json parsing error, given payload: %s", plain)
+	}
+	return val.Elem().Interface(), nil
+}
+
+func NewStrategyFromMap(id string, conf interface{}) (SingleExchangeStrategy, error) {
+	if st, ok := LoadedExchangeStrategies[id]; ok {
+		val, err := reUnmarshal(conf, st)
+		if err != nil {
+			return nil, err
+		}
+		return val.(SingleExchangeStrategy), nil
+	}
+	return nil, fmt.Errorf("strategy %s not found", id)
+}
+
+func loadExchangesStrategies(config *Config, stash Stash) (err error) {
+	log.Debug("stash: ")
+	pp.Print(stash)
+	exchangeStrategiesConfig, ok := stash["exchangeStrategies"]
+	if !ok {
+		exchangeStrategiesConfig, ok = stash["strategies"]
+		if !ok {
+			return nil
+		}
+	}
+	log.Debug("LoadedExchangeStrategies: ", LoadedExchangeStrategies)
+	// The LoadedExchangeStrategies value setting process is:
+	// 1. create init() with learn_bbgo.RegisterStrategy() func in learn_bbgo/pkg/strategy
+	// 2. create builtin.go in learn_bbgo/pkg/cmd/strategy and use import with _ to run init() funciton
+	// 3. create import.go in learn_bbgo/pkg/cmd and use import with _ to import package pkg/cmd/strategy
+	// 4. conclude: when execute cmd package, go will run import.go -> builtin.go -> RegisterStrategy(ID, &Strategy{}) of init() func.
+	if len(LoadedExchangeStrategies) == 0 {
+		return errors.New("no exchange strategy is registered")
+	}
+	// filter out exchangeStrategies content
+	configList, ok := exchangeStrategiesConfig.([]interface{})
+	if !ok {
+		return errors.New("expecting list([]interface{}) in exchangeStrategies")
+	}
+
+	log.Debug("configList: ")
+	pp.Print(configList)
+	// TODO: fix strategy not found in config
+	for _, entry := range configList {
+		configStash, ok := entry.(Stash)
+		if !ok {
+			return fmt.Errorf("strategy config should be a map[string]interface{}, given: %T %+v", entry, entry)
+		}
+		log.Debug("configStash")
+		pp.Print(configStash)
+
+		var mounts []string
+		if val, ok := configStash["on"]; ok {
+			switch tv := val.(type) {
+			case []string:
+				mounts = append(mounts, tv...)
+			case string:
+				mounts = append(mounts, tv)
+			case []interface{}:
+				for _, f := range tv {
+					s, ok := f.(string)
+					if !ok {
+						return fmt.Errorf("%v (%T) is not a string", f, f)
+					}
+					mounts = append(mounts, s)
+				}
+			default:
+				return fmt.Errorf("unexpected mount type: %T value %+v", val, val)
+			}
+		}
+
+		for id, conf := range configStash {
+			if _, ok := LoadedExchangeStrategies[id]; ok {
+				st, err := NewStrategyFromMap(id, conf)
+				if err != nil {
+					return err
+				}
+
+				config.ExchangeStrategies = append(config.ExchangeStrategies, ExchangeStrategyMount{
+					Mounts:   mounts,
+					Strategy: st,
+				})
+			} else if id != "on" && id != "off" {
+				return fmt.Errorf("strategy %s in config not found", id)
+			}
+		}
+	}
+
+	os.Exit(1)
+	return nil
+}
+
+func loadCrossExchangeStrategies(config *Config, stash Stash) (err error) {
+	// exchangeStrategiesConf, ok := stash["crossExchangeStrategies"]
+	return nil
+}
+
 type Stash map[string]interface{}
 
 func loadStash(config []byte) (Stash, error) {
@@ -54,32 +165,9 @@ func loadStash(config []byte) (Stash, error) {
 	return stash, nil
 }
 
-func loadExchangesStrategies(config *Config, stash Stash) (err error) {
-	log.Debug("stash: ", stash)
-	exchangeStrategiesConfig, ok := stash["exchangeStrategies"]
-	_ = exchangeStrategiesConfig
-	if !ok {
-		exchangeStrategiesConfig, ok = stash["strategies"]
-		if !ok {
-			return nil
-		}
-	}
-	log.Debug("LoadedExchangeStrategies: ", LoadedExchangeStrategies)
-	// TODO: find where is LoadedExchangesStrategies loaded the first time
-	if len(LoadedExchangeStrategies) == 0 {
-		return errors.New("no exchange strategy is registered")
-	}
-	return nil
-}
-
-func loadCrossExchangeStrategies(config *Config, stash Stash) (err error) {
-	// exchangeStrategiesConf, ok := stash["crossExchangeStrategies"]
-	return nil
-}
-
 // loadConfig file with strategies
 func Load(configFile string, loadStrategies bool) (*Config, error) {
-	log.Info("start Load config file")
+	log.Infof("start Load config file with load Strategies %v", loadStrategies)
 	var config Config
 
 	// origin ioutil
@@ -88,6 +176,7 @@ func Load(configFile string, loadStrategies bool) (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
+	// decode content to config
 	if err := yaml.Unmarshal(content, &config); err != nil {
 		return nil, err
 	}

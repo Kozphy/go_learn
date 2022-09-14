@@ -1,7 +1,7 @@
 package learn_bbgo
 
 import (
-	"github.com/zixas/learn_bbgo/pkg/types"
+	"github.com/zixsa/learn_bbgo/pkg/types"
 )
 
 type ExchangeSession struct {

@@ -1,6 +1,5 @@
 //go:build dnum
 
-// build contraint
 package fixedpoint
 
 import (

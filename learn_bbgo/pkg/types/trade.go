@@ -3,7 +3,7 @@ package types
 import (
 	"database/sql"
 
-	"github.com/zixas/learn_bbgo/pkg/fixedpoint"
+	"github.com/zixsa/learn_bbgo/pkg/fixedpoint"
 )
 
 type Trade struct {

@@ -1,9 +1,11 @@
-module github.com/zixas/learn_bbgo
+module github.com/zixsa/learn_bbgo
 
 go 1.19
 
 require (
+	github.com/gorilla/websocket v1.5.0
 	github.com/joho/godotenv v1.4.0
+	github.com/k0kubun/pp/v3 v3.1.0
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.5.0

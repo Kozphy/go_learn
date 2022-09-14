@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/viper"
 	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 
-	"github.com/zixas/learn_bbgo/pkg/learn_bbgo"
+	"github.com/zixsa/learn_bbgo/pkg/learn_bbgo"
 )
 
 var userConfig *learn_bbgo.Config

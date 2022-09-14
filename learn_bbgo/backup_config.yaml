@@ -1,0 +1,6 @@
+
+# can use exchangeStrategies or strategies
+exchangeStrategie:
+# []interface{}
+- off: binance
+  bollmaker:

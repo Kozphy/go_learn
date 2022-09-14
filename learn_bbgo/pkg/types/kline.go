@@ -3,8 +3,10 @@ package types
 import (
 	"fmt"
 
-	"github.com/zixas/learn_bbgo/pkg/fixedpoint"
+	"github.com/zixsa/learn_bbgo/pkg/fixedpoint"
 )
+
+type KLineWindow []KLine
 
 // KLine uses binance's kline as the standard structure
 type KLine struct {

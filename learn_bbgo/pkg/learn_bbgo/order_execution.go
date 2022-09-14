@@ -4,8 +4,8 @@ import (
 	"context"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/zixas/learn_bbgo/pkg/fixedpoint"
-	"github.com/zixas/learn_bbgo/pkg/types"
+	"github.com/zixsa/learn_bbgo/pkg/fixedpoint"
+	"github.com/zixsa/learn_bbgo/pkg/types"
 )
 
 type OrderExecutor interface {

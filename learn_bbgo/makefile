@@ -9,8 +9,13 @@ $(BIN_DIR):
 learn_bbgo:
 	go build -o $(BIN_DIR)/$@ ./cmd/learn_bbgo
 	
+
+# build learn_bbgo with dnum
+learn_bbgo_dnum:
+	go build -tags dnum -o $(BIN_DIR)/$@ ./cmd/learn_bbgo
+
 # remove artifact file
 clean:
 	rm -rf $(BUILD_DIR)
 
-# .PHONY: 
+# .PHONY:ear

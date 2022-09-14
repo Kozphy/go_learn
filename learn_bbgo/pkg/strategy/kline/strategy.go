@@ -2,12 +2,13 @@ package kline
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/zixas/learn_bbgo/pkg/learn_bbgo"
+	"github.com/zixsa/learn_bbgo/pkg/learn_bbgo"
 
-	"github.com/zixas/learn_bbgo/pkg/types"
+	"github.com/zixsa/learn_bbgo/pkg/types"
 )
 
 const ID = "kline"
@@ -15,6 +16,7 @@ const ID = "kline"
 var log = logrus.WithField("strategy", ID)
 
 func init() {
+	fmt.Println("start Load kline Strategy")
 	learn_bbgo.RegisterStrategy(ID, &Strategy{})
 }
 
