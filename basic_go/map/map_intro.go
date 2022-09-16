@@ -7,6 +7,12 @@ import (
 	"sync"
 )
 
+func All_map() {
+	fmt.Println("Map==============================")
+	fmt.Println("Map intro")
+	Map_intro()
+}
+
 // source article: https://go.dev/blog/maps
 
 // Map signature and introduction

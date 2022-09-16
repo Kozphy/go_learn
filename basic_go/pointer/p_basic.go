@@ -7,6 +7,18 @@ type Vertex struct {
 	Y int
 }
 
+func All_pointer() {
+	fmt.Println("Pointer==============================")
+	fmt.Println("P_basic")
+	P_basic()
+
+	fmt.Println("Pointers to struct")
+	Pointers_to_struct()
+
+	fmt.Println("Struct literals")
+	Struct_Literals()
+}
+
 func P_basic() {
 	i, j := 42, 2701
 

@@ -5,6 +5,15 @@ import (
 	"strings"
 )
 
+func All_slice() {
+	fmt.Println("Slice==============================")
+	fmt.Println("slice literals")
+	Slice_literals()
+
+	fmt.Println("Slice of slices")
+	Slice_of_slices()
+}
+
 func Slice_literals() {
 	q := []int{2, 3, 5, 7, 11, 13}
 	fmt.Println(q)

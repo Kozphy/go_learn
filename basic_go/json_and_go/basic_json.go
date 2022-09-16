@@ -39,6 +39,31 @@ type Message struct {
 	Time int64
 }
 
+func All_json_and_go() {
+	fmt.Println("json and go")
+	Marshal_and_UnMarshal_test()
+
+	fmt.Println("UnMarshal_not_find===========")
+	UnMarshal_not_find()
+
+	fmt.Println()
+	fmt.Println("Generic_json_with_interface========")
+	Generic_json_with_interface()
+
+	fmt.Println()
+	fmt.Println("Decode_arbitrary_data========")
+	Decode_arbitrary_data()
+
+	fmt.Println()
+	fmt.Println("Reference_type==================")
+	Reference_types()
+
+	fmt.Println()
+	fmt.Println("Streaming_encoders_and_decoders==================")
+	// json.Streaming_encoders_and_decoders()
+
+}
+
 func Marshal_and_UnMarshal_test() error {
 
 	// Encoding

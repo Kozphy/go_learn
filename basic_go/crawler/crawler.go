@@ -5,6 +5,51 @@ import (
 	"sync"
 )
 
+var wg sync.WaitGroup
+
+func web_crawler() {
+	fmt.Println("Exercise: Web Crawler")
+	// fetcher is a populated fakeFetcher.
+	var fetcher = FakeFetcher{
+		"https://golang.org/": &FakeResult{
+			Body: "The Go Programming Language",
+			Urls: []string{
+				"https://golang.org/pkg/",
+				"https://golang.org/cmd/",
+			},
+		},
+		"https://golang.org/pkg/": &FakeResult{
+			Body: "Packages",
+			Urls: []string{
+				"https://golang.org/",
+				"https://golang.org/cmd/",
+				"https://golang.org/pkg/fmt/",
+				"https://golang.org/pkg/os/",
+			},
+		},
+		"https://golang.org/pkg/fmt/": &FakeResult{
+			Body: "Package fmt",
+			Urls: []string{
+				"https://golang.org/",
+				"https://golang.org/pkg/",
+			},
+		},
+		"https://golang.org/pkg/os/": &FakeResult{
+			Body: "Package os",
+			Urls: []string{
+				"https://golang.org/",
+				"https://golang.org/pkg/",
+			},
+		},
+	}
+	wg.Add(1)
+	var crawch = &SafeMapCache{V: make(map[string]bool)}
+	go Crawl("https://golang.org/", 4, fetcher, crawch, &wg)
+	wg.Wait()
+
+	fmt.Println()
+}
+
 type SafeMapCache struct {
 	mu sync.Mutex
 	V  map[string]bool

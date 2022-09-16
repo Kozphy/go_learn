@@ -5,6 +5,21 @@ import (
 	"math"
 )
 
+func All_func() {
+	fmt.Println("Function==============================")
+	fmt.Println("Function values")
+	Function_values()
+
+	fmt.Println("function closures")
+	Function_closures()
+
+	fmt.Println("function fiboncci")
+	f := Fiboncci()
+	for i := 0; i < 10; i++ {
+		fmt.Println(f())
+	}
+}
+
 func compute(fn func(float64, float64) float64) float64 {
 	return fn(3, 4)
 }
