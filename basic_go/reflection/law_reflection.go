@@ -95,9 +95,14 @@ func describe(i interface{}) {
 	fmt.Printf("%v, %T\n", i, i)
 }
 
-// The first law of reflection
 // Reflection goes from interface value to reflection object
-// At the basic level, reflection is just a mechanism to examine the type and value pair stored inside an interface variable
+/*
+	At the basic level, reflection is just a mechanism to examine the type and value pair stored inside an interface variable
+
+	Those two types (type, value) give access to the contents of an interface variable,
+	and two simple functions, called reflect.TypeOf and reflect.ValueOf, retrieve reflect.Type
+	and reflect.Value pieces out of an interface value.
+*/
 func Reflect_first_law() {
 	fmt.Println()
 	fmt.Println("Reflect first law: ")
