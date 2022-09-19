@@ -9,7 +9,8 @@ import (
 func Final_state() {
 	// explicit_cancellation()
 	// explicit_cancellation_improve()
-	digesting_tree(true)
+	// digesting_tree(true)
+	digest_bounded()
 
 }
 
