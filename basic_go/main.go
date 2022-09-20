@@ -9,13 +9,14 @@ import (
 	// "github.com/zixas/go_learn/methods"
 	// "github.com/zixas/go_learn/reflection"
 
-	// "github.com/zixas/go_learn/concurrency"
-	"github.com/zixas/go_learn/concurrency/server"
+	"github.com/zixas/go_learn/concurrency"
+	// "github.com/zixas/go_learn/concurrency/server"
 )
 
 func main() {
 	// reflection.Law_reflect()
 	// concurrency.Final_state()
-	server.Execute_server()
+	// server.Execute_server()
+	concurrency.Execute_deadline_digitoc()
 
 }
