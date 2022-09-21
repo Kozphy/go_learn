@@ -93,7 +93,7 @@ func Execute1_digitoc() {
 
 */
 
-func doSomething3(ctx context.Context) {
+func doSomething_cancel(ctx context.Context) {
 	ctx, cancelCtx := context.WithCancel(ctx)
 
 	printCh := make(chan int)
@@ -133,7 +133,7 @@ func doAnother3(ctx context.Context, printCh chan int) {
 func Execute_cancel_digitoc() {
 	ctx := context.Background()
 	ctx = context.WithValue(ctx, "myKey", "myValue")
-	doSomething3(ctx)
+	doSomething_cancel(ctx)
 }
 
 // Giving a context a deadline
@@ -154,7 +154,7 @@ func Execute_cancel_digitoc() {
 
 
 */
-func doSomething4(ctx context.Context) {
+func doSomething_deadline(ctx context.Context) {
 	deadline := time.Now().Add(1500 * time.Millisecond)
 	ctx, cancelCtx := context.WithDeadline(ctx, deadline)
 	// not necessarily required
@@ -180,5 +180,39 @@ func doSomething4(ctx context.Context) {
 func Execute_deadline_digitoc() {
 	ctx := context.Background()
 	ctx = context.WithValue(ctx, "myKey", "myValue")
-	doSomething4(ctx)
+	doSomething_deadline(ctx)
+}
+
+// Giving a Context a Time Limit
+/*
+	by using the context.WithTimeout function you only need to provide a time.Duration
+	value for how long you want the context to last.
+
+*/
+
+func doSomething_timeout(ctx context.Context) {
+	ctx, cancelCtx := context.WithTimeout(ctx, 1500*time.Millisecond)
+	defer cancelCtx()
+	printCh := make(chan int)
+	go doAnother3(ctx, printCh)
+
+	for num := 1; num <= 3; num++ {
+		select {
+		case printCh <- num:
+			time.Sleep(1 * time.Second)
+		case <-ctx.Done():
+			break
+		}
+	}
+
+	cancelCtx()
+
+	time.Sleep(100 * time.Millisecond)
+	fmt.Printf("doSomething: finished\n")
+}
+
+func Execute_timeout_digitoc() {
+	ctx := context.Background()
+	ctx = context.WithValue(ctx, "myKey", "myValue")
+	doSomething_timeout(ctx)
 }

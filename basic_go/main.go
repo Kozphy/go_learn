@@ -1,22 +1,21 @@
 package main
 
-import (
-	// generic "github.com/zixas/go_learn/Generics"
-	// "github.com/zixas/go_learn/crawler"
+import "github.com/zixas/go_learn/concurrency"
 
-	// _interface "github.com/zixas/go_learn/interface"
-	// json "github.com/zixas/go_learn/json_and_go"
-	// "github.com/zixas/go_learn/methods"
-	// "github.com/zixas/go_learn/reflection"
+// generic "github.com/zixas/go_learn/Generics"
+// "github.com/zixas/go_learn/crawler"
 
-	"github.com/zixas/go_learn/concurrency"
-	// "github.com/zixas/go_learn/concurrency/server"
-)
+// _interface "github.com/zixas/go_learn/interface"
+// json "github.com/zixas/go_learn/json_and_go"
+// "github.com/zixas/go_learn/methods"
+// "github.com/zixas/go_learn/reflection"
+
+// "github.com/zixas/go_learn/concurrency/server"
 
 func main() {
 	// reflection.Law_reflect()
 	// concurrency.Final_state()
 	// server.Execute_server()
-	concurrency.Execute_deadline_digitoc()
+	concurrency.Execute_timeout_digitoc()
 
 }
