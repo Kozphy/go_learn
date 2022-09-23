@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	enviroment.ConfigureNotificationSystem()
+	enviroment.ConfigureNotificationSystem_setupInteraction_getAuthStore()
 }
