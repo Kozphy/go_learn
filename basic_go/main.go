@@ -19,6 +19,8 @@ func main() {
 	// concurrency.Final_state()
 	// server.Execute_server()
 	// concurrency.Execute_timeout_digitoc()
-	methods.Execute_interface_digitoc()
+	// methods.Execute_interface_digitoc()
+	// methods.Execute_Pointer_receiver()
+	methods.Execute_pointer_receivers_interface()
 
 }
