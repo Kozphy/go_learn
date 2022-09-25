@@ -9,3 +9,7 @@ var DefaultPersistenceServiceFacade = &service.PersistenceServiceFacade{
 }
 
 var PersistenceServiceFacade = DefaultPersistenceServiceFacade
+
+type PersistenceService interface {
+	NewStore(id string, subIDs ...string) interface{}
+}

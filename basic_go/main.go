@@ -11,7 +11,8 @@ package main
 
 // "github.com/zixas/go_learn/concurrency/server"
 import (
-	"github.com/zixas/go_learn/methods"
+	// "github.com/zixas/go_learn/methods"
+	"github.com/zixas/go_learn/pointer"
 )
 
 func main() {
@@ -21,6 +22,10 @@ func main() {
 	// concurrency.Execute_timeout_digitoc()
 	// methods.Execute_interface_digitoc()
 	// methods.Execute_Pointer_receiver()
-	methods.Execute_pointer_receivers_interface()
-
+	// methods.Execute_pointer_receivers_interface()
+	// pointer.Execute_define_using_pointer()
+	// pointer.Execute_function_pointer_receivers()
+	// pointer.Execute_nil_pointers()
+	// pointer.Execute_nil_pointer_improve()
+	pointer.Execute_method_pointer_receivers()
 }
