@@ -1,5 +1,7 @@
 package main
 
+import "github.com/zixas/go_learn/reflection"
+
 // import "github.com/zixas/go_learn/concurrency"
 
 // generic "github.com/zixas/go_learn/Generics"
@@ -7,13 +9,11 @@ package main
 
 // _interface "github.com/zixas/go_learn/interface"
 // json "github.com/zixas/go_learn/json_and_go"
-// "github.com/zixas/go_learn/reflection"
 
 // "github.com/zixas/go_learn/concurrency/server"
-import (
-	// "github.com/zixas/go_learn/methods"
-	"github.com/zixas/go_learn/pointer"
-)
+
+// "github.com/zixas/go_learn/methods"
+// "github.com/zixas/go_learn/pointer"
 
 func main() {
 	// reflection.Law_reflect()
@@ -27,5 +27,7 @@ func main() {
 	// pointer.Execute_function_pointer_receivers()
 	// pointer.Execute_nil_pointers()
 	// pointer.Execute_nil_pointer_improve()
-	pointer.Execute_method_pointer_receivers()
+	// pointer.Execute_method_pointer_receivers()
+	reflection.Execute_reflect_with_name_return()
+
 }

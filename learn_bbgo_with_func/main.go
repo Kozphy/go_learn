@@ -1,9 +1,11 @@
 package main
 
 import (
-	enviroment "github.com/zixsa/learn_bbgo_with_func/pkg/bbgo"
+	"github.com/zixsa/learn_bbgo_with_func/pkg/fixedpoint"
 )
 
 func main() {
-	enviroment.ConfigureNotificationSystem_setupInteraction_getAuthStore()
+	// enviroment.ConfigureNotificationSystem_setupInteraction_getAuthStore()
+	// fixedpoint.Execute_DefaultFeeRate()
+	fixedpoint.Execute_NewFromString()
 }
