@@ -167,7 +167,8 @@ func Map_intro() {
 
 	// Concurrency
 	/*
-		Maps are not safe for concurrent use: it’s not defined what happens when you read and write to them simultaneously.
+		Maps are not safe for concurrent use: it’s not defined what happens when
+		you read and write to them simultaneously.
 		if you need to read from and write to a map from concurrently executing goroutines,
 		One common way to protect maps is with "sync.RWMutex".
 	*/

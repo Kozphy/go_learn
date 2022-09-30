@@ -32,6 +32,7 @@ func Execute_DefaultFeeRate() {
 	// a := NewFromFloat(float64(math.Inf(1)))
 	// a := NewFromFloat(float64(math.Inf(-1)))
 	a := NewFromFloat(float64(math.MaxFloat64 + 1))
+
 	fmt.Println(a)
 }
 
@@ -131,13 +132,14 @@ func NewFromString(input string) (Value, error) {
 		}
 		fmt.Printf("input[0: scIndex+1]: %v\n", input[0:scIndex+1])
 		fmt.Printf("strconv.FormatInt(exp+8, 10): %v\n", strconv.FormatInt(exp+8, 10))
-		// 1001e9
+		// 1001e+9
 		v, err := strconv.ParseFloat(input[0:scIndex+1]+strconv.FormatInt(exp+8, 10), 64)
 		if err != nil {
 			return 0, err
 		}
 		return Value(int64(math.Trunc(v))), nil
 	} else if hasIChar {
+		fmt.Println("hasIChar")
 		if floatV, err := strconv.ParseFloat(input, 64); nil != err {
 			return 0, err
 		} else if math.IsInf(floatV, 1) {
@@ -163,9 +165,10 @@ func NewFromString(input string) (Value, error) {
 }
 
 func Execute_NewFromString() {
-	a, err := NewFromString("1001e+1")
+	a, err := NewFromString("-inf")
 	fmt.Printf("res: %v\n", a)
 	if err != nil {
 		fmt.Printf("err: %v\n", err)
 	}
+	fmt.Println((err != nil) == (nil != err))
 }
