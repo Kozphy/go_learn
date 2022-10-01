@@ -1,6 +1,10 @@
 package main
 
-import "github.com/zixas/go_learn/reflection"
+import (
+	"time"
+
+	"github.com/zixas/go_learn/websocket_l"
+)
 
 // import "github.com/zixas/go_learn/concurrency"
 
@@ -28,6 +32,8 @@ func main() {
 	// pointer.Execute_nil_pointers()
 	// pointer.Execute_nil_pointer_improve()
 	// pointer.Execute_method_pointer_receivers()
-	reflection.Execute_reflect_with_name_return()
-
+	// reflection.Execute_reflect_with_name_return()
+	// websocket_l.Execute_tcp_socket_commnicate()
+	websocket_l.Execute_udp_socket_commnicate()
+	time.Sleep(time.Second * 10)
 }

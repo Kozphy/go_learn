@@ -1,0 +1,3 @@
+package binance
+
+func NewStream()
