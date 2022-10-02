@@ -1,8 +1,6 @@
 package main
 
 import (
-	"time"
-
 	"github.com/zixas/go_learn/websocket_l"
 )
 
@@ -35,5 +33,4 @@ func main() {
 	// reflection.Execute_reflect_with_name_return()
 	// websocket_l.Execute_tcp_socket_commnicate()
 	websocket_l.Execute_udp_socket_commnicate()
-	time.Sleep(time.Second * 10)
 }

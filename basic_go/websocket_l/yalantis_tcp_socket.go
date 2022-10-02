@@ -3,6 +3,7 @@ package websocket_l
 import (
 	"fmt"
 	"net"
+	"time"
 )
 
 /*
@@ -18,7 +19,7 @@ import (
 
 */
 
-var addr = net.TCPAddr{
+var addr_tcp = net.TCPAddr{
 	IP:   net.IPv4(127, 0, 0, 1),
 	Port: 9001,
 }
@@ -49,7 +50,7 @@ func tcp_socket_server(listener net.Listener) {
 }
 
 func tcp_socket_client() {
-	tcpAddr_client, err := net.ResolveTCPAddr("tcp", addr.String())
+	tcpAddr_client, err := net.ResolveTCPAddr("tcp", addr_tcp.String())
 	if err != nil {
 		// handle error
 		panic(fmt.Errorf("client side resolveTcpAddr error: %v", err))
@@ -81,7 +82,7 @@ func tcp_socket_client() {
 }
 
 func Execute_tcp_socket_server() {
-	tcpAddr_server, err := net.ResolveTCPAddr("tcp", addr.String())
+	tcpAddr_server, err := net.ResolveTCPAddr("tcp", addr_tcp.String())
 	if err != nil {
 		// handle error
 		panic(fmt.Errorf("server side resolveTcpAddr error: %v", err))
@@ -103,4 +104,5 @@ func Execute_tcp_socket_client() {
 func Execute_tcp_socket_commnicate() {
 	Execute_tcp_socket_server()
 	Execute_tcp_socket_client()
+	time.Sleep(time.Second * 10)
 }
