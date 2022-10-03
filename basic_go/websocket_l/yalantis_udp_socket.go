@@ -34,16 +34,16 @@ func udp_socket_server(ctx context.Context, conn *net.UDPConn) {
 		}
 		fmt.Printf("server get message: %v\n", string(buffer[:]))
 
-		go func() {
-			fmt.Println("server Write to UDP")
-			// send message
-			// buf := make([]byte, 512)
-			_, err = conn.WriteToUDP([]byte("ping"), addr)
-			if err != nil {
-				// handle error
-				panic(fmt.Errorf("server side send error: %v", err))
-			}
-		}()
+		// go func() {
+		fmt.Println("server Write to UDP")
+		// send message
+		// buf := make([]byte, 512)
+		_, err = conn.WriteToUDP([]byte("ping"), addr)
+		if err != nil {
+			// handle error
+			panic(fmt.Errorf("server side send error: %v", err))
+		}
+		// }()
 	}
 }
 

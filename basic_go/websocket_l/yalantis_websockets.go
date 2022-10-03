@@ -1,7 +1,9 @@
 package websocket_l
 
 import (
+	"bufio"
 	"fmt"
+	"net"
 	"net/http"
 )
 
@@ -27,24 +29,24 @@ import (
 */
 func Server() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		ws, err := NewHandler(w, r)
+		conn, ws, err := NewHandler(w, r)
 		if err != nil {
 			// handle error
 			panic(fmt.Errorf("NewHandler error %v\n", err))
 		}
-		if err = ws.Handshake(); err != nil {
-			// handle error
-			panic(fmt.Errorf("ws handshake error %v\n", err))
-		}
+		_ = ws
+		defer conn.Close()
+		// if err = ws.Handshake(); err != nil {
+		// 	// handle error
+		// 	panic(fmt.Errorf("ws handshake error %v\n", err))
+		// }
 	})
 
 	// Handshake creates a handshake header
-	/*
-
-	 */
+	// TODO: research how to implment handshake
 	// func (ws *WS) Handshake() error {
 	// 	hash := func(key string) string {
-	// 		h := sha.New()
+	// 		h := sha1.New()
 	// 		h.Write([]byte(key))
 	// 		h.Write([]byte("258EAFA5-E914-47DA-95CA-C5AB0DC85B11"))
 	// 		return base64.StdEncoding.EncodeToString(h.Sum(nil))
@@ -55,19 +57,15 @@ func Server() {
 }
 
 // NewHandler initializes a new handler
-func NewHandler(w http.ResponseWriter, req *http.Request) (*WS, error) {
+func NewHandler(w http.ResponseWriter, req *http.Request) (conn net.Conn, WS *bufio.ReadWriter, err error) {
 	hj, ok := w.(http.Hijacker)
 	if !ok {
 		// handle error
 		http.Error(w, "webserver doesn't support hijacking", http.StatusInternalServerError)
-		return
 	}
-	conn, bufrw, err := hj.Hijack()
+	conn, WS, err = hj.Hijack()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
 	}
-	defer conn.Close()
-	bufrw.WriteString("Now we're speaking raw TCP. Say hi: ")
-	bufrw.Flush()
+	return conn, WS, err
 }

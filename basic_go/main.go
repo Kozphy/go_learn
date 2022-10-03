@@ -32,5 +32,6 @@ func main() {
 	// pointer.Execute_method_pointer_receivers()
 	// reflection.Execute_reflect_with_name_return()
 	// websocket_l.Execute_tcp_socket_commnicate()
-	websocket_l.Execute_udp_socket_commnicate()
+	// websocket_l.Execute_udp_socket_commnicate()
+	websocket_l.Execute_simeple_http_endpoint()
 }
