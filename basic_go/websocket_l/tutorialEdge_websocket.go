@@ -72,7 +72,6 @@ func wsEndpoint(w http.ResponseWriter, r *http.Request) {
 	render(ws)
 }
 
-// FIXME: can't connect to wsl with ws:// header
 // will continually listen for any incoming messages sent through that WebSocket connection.
 func render(conn *websocket.Conn) {
 	for {
