@@ -1,0 +1,11 @@
+{
+    "__source__": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#md041",
+    "default": true,
+    "MD007": false,
+    "MD013": false,
+    "no-hard-tabs": false,
+    "MD024": {
+        "allow_different_nesting": true
+    },
+    "MD051": false
+}

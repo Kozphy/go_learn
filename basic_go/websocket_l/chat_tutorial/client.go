@@ -16,6 +16,7 @@ const (
 )
 
 // Upgrader specifies parameters for upgrading an HTTP connection to WebSocket connection.
+// default is 4096
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
