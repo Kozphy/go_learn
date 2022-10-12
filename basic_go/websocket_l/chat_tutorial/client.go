@@ -1,6 +1,7 @@
 package chat_tutorial
 
 import (
+	"bytes"
 	"log"
 	"net/http"
 	"time"
@@ -13,6 +14,11 @@ const (
 	pongWait       = 60 * time.Second
 	pingPeriod     = 60 * time.Second
 	maxMessageSize = 512
+)
+
+var (
+	newline = []byte{'\n'}
+	space   = []byte{' '}
 )
 
 // Upgrader specifies parameters for upgrading an HTTP connection to WebSocket connection.
@@ -55,5 +61,18 @@ func (c *Client) readPump() {
 		c.conn.SetReadDeadline(time.Now().Add(pongWait))
 		return nil
 	})
+	for {
+		_, message, err := c.conn.ReadMessage()
+
+		if err != nil {
+			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+				log.Printf("error: %v", err)
+			}
+			break
+		}
+		// using space instead newline
+		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
+		c.hub.broadcast <- message
+	}
 
 }

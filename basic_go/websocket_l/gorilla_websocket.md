@@ -135,4 +135,17 @@ The `buffer sizes in bytes are specified` by the ReadBufferSize and WriteBufferS
 
 The `Dialer` uses a `default size of 4096 when a buffer size field is set to zero`.
 
-The `Upgrader` reuses buffers created by the HTTP server when a buffer size field is set to zero. The HTTP server buffers have a size of 4096 at the time of this writing.
+The `Upgrader` **reuses buffers** created by the HTTP server `when a buffer size field is set to zero`. The HTTP server buffers have a size of 4096 at the time of this writing.
+
+The `buffer sizes do not limit the size of a message` that can be read or written by a connection.
+
+Buffers are held for the `lifetime of the connection by default`. If the Dialer or Upgrader WriteBufferPool field is set, then a connection holds the write buffer only when writing a message.
+
+Applications should `tune the buffer sizes to balance memory use and performance`. Increasing the buffer size uses more memory, but can reduce the number of system calls to read or write the network. In the case of writing, increasing the buffer size can reduce the number of frame headers written to the network.
+
+`Some guidelines for setting buffer` parameters are:
+`Limit the buffer sizes to the maximum expected message size.` Buffers larger than the largest message do not provide any benefit.
+
+Depending on the distribution of message sizes, `setting the buffer size to a value less than the maximum expected message size can greatly reduce memory use with a small impact on performance`. Here's an example: If 99% of the messages are smaller than 256 bytes and the maximum message size is 512 bytes, then a buffer size of 256 bytes will result in 1.01 more system calls than a buffer size of 512 bytes. The memory savings is 50%.
+
+A `write buffer pool is useful` when the application has a `modest number writes over a large number of connections`. when buffers are pooled, a larger buffer size has a reduced impact on total memory use and has the benefit of reducing system calls and frame overhead.
