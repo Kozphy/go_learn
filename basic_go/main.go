@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/zixas/go_learn/websocket_l"
+	"github.com/zixas/go_learn/websocket_l/chat_tutorial"
 )
 
 // import "github.com/zixas/go_learn/concurrency"
@@ -33,5 +33,6 @@ func main() {
 	// reflection.Execute_reflect_with_name_return()
 	// websocket_l.Execute_tcp_socket_commnicate()
 	// websocket_l.Execute_udp_socket_commnicate()
-	websocket_l.Execute_simeple_http_endpoint()
+	// websocket_l.Execute_simeple_http_endpoint()
+	chat_tutorial.Execute_chat_websocket()
 }

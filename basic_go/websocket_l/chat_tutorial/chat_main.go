@@ -5,12 +5,15 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"os"
 )
 
+// return value of the flag
 var addr = flag.String("addr", ":8080", "http service address")
 
 func serveHome(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.URL)
+	log.Println(r.URL.Path == "/")
 	if r.URL.Path != "/" {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
@@ -20,7 +23,16 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	http.ServeFile(w, r, "home.html")
+	log.Println("Serve file")
+
+	dir, _ := os.Getwd()
+	home_lacation := dir + "/websocket_l/chat_tutorial/home.html"
+	_, err := os.Stat(home_lacation)
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
+	http.ServeFile(w, r, home_lacation)
 }
 
 func Execute_chat_websocket() {
