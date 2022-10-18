@@ -1,10 +1,6 @@
 package main
 
-import (
-	"time"
-
-	pingpong "github.com/zixas/go_learn/websocket_l/ping_pong"
-)
+import "github.com/zixas/go_learn/websocket_l/chat_tutorial"
 
 // import "github.com/zixas/go_learn/concurrency"
 
@@ -37,7 +33,8 @@ func main() {
 	// websocket_l.Execute_udp_socket_commnicate()
 	// websocket_l.Execute_simeple_http_endpoint()
 	// chat_tutorial.Execute_chat_websocket()
-	go pingpong.Execute_ping_pong_server()
-	time.Sleep(time.Second)
-	pingpong.Execute_ping_pong_client()
+	// go pingpong.Execute_ping_pong_server()
+	// time.Sleep(time.Second)
+	// pingpong.Execute_ping_pong_client()
+	chat_tutorial.Execute_chat_websocket_conn()
 }

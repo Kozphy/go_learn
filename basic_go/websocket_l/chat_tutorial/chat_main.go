@@ -3,9 +3,13 @@ package chat_tutorial
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"time"
+
+	"github.com/gorilla/mux"
 )
 
 // return value of the flag
@@ -44,6 +48,31 @@ func Execute_chat_websocket() {
 		serveWs(hub, w, r)
 	})
 	err := http.ListenAndServe(*addr, nil)
+	if err != nil {
+		log.Fatal("ListenAndServe", err)
+	}
+}
+
+func Execute_chat_websocket_conn() {
+	fmt.Println("start chat websocket_conn")
+	flag.Parse()
+	hub := newHub_conn()
+	go hub.run()
+	r := mux.NewRouter()
+	r.HandleFunc("/", serveHome)
+	r.HandleFunc("/room1", func(w http.ResponseWriter, r *http.Request) {
+		serveWs_conn(hub, w, r)
+	})
+	r.HandleFunc("/room2", func(w http.ResponseWriter, r *http.Request) {
+		serveWs_conn(hub, w, r)
+	})
+	srv := &http.Server{
+		Handler:      r,
+		Addr:         *addr,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+	err := srv.ListenAndServe()
 	if err != nil {
 		log.Fatal("ListenAndServe", err)
 	}

@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
 )
 
@@ -49,7 +48,6 @@ func serveWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 		request handler to get a *Conn, which represents a Websocket connection:
 	*/
 	conn, err := upgrader.Upgrade(w, r, nil)
-	vars := mux.Vars(r)
 	if err != nil {
 		log.Println(err)
 		return
