@@ -1,6 +1,10 @@
 package main
 
-import "github.com/zixas/go_learn/websocket_l/chat_tutorial"
+import (
+	// "github.com/zixas/go_learn/websocket_l/chat_tutorial"
+	// "github.com/zixas/go_learn/neetcode/array_hashing"
+	"github.com/zixas/go_learn/neetcode/two_pointers"
+)
 
 // import "github.com/zixas/go_learn/concurrency"
 
@@ -36,5 +40,7 @@ func main() {
 	// go pingpong.Execute_ping_pong_server()
 	// time.Sleep(time.Second)
 	// pingpong.Execute_ping_pong_client()
-	chat_tutorial.Execute_chat_websocket_conn()
+	// chat_tutorial.Execute_chat_websocket_conn()
+	// array_hashing.Execute_containsDuplicate()
+	two_pointers.Execute_isPalindrome()
 }
