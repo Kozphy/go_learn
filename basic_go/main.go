@@ -3,7 +3,7 @@ package main
 import (
 	// "github.com/zixas/go_learn/websocket_l/chat_tutorial"
 	// "github.com/zixas/go_learn/neetcode/array_hashing"
-	"github.com/zixas/go_learn/neetcode/two_pointers"
+	"github.com/zixas/go_learn/neetcode/array_hashing"
 )
 
 // import "github.com/zixas/go_learn/concurrency"
@@ -41,6 +41,11 @@ func main() {
 	// time.Sleep(time.Second)
 	// pingpong.Execute_ping_pong_client()
 	// chat_tutorial.Execute_chat_websocket_conn()
+	Execute_neetcode()
+}
+
+func Execute_neetcode() {
 	// array_hashing.Execute_containsDuplicate()
-	two_pointers.Execute_isPalindrome()
+	// two_pointers.Execute_isPalindrome()
+	array_hashing.Execute_isAnagram()
 }
