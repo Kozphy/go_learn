@@ -1,10 +1,6 @@
 package main
 
-import (
-	// "github.com/zixas/go_learn/websocket_l/chat_tutorial"
-	// "github.com/zixas/go_learn/neetcode/array_hashing"
-	"github.com/zixas/go_learn/neetcode/array_hashing"
-)
+import "github.com/zixas/go_learn/neetcode/array_hashing"
 
 // import "github.com/zixas/go_learn/concurrency"
 
@@ -48,4 +44,6 @@ func Execute_neetcode() {
 	// array_hashing.Execute_containsDuplicate()
 	// two_pointers.Execute_isPalindrome()
 	array_hashing.Execute_isAnagram()
+	// array_hashing.Execute_twoSum()
+	// slidingwindows.Execute_maxProfit()
 }
