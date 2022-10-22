@@ -1,6 +1,8 @@
 package main
 
-import "github.com/zixas/go_learn/neetcode/array_hashing"
+import (
+	linkedlist "github.com/zixas/go_learn/neetcode/linked_list"
+)
 
 // import "github.com/zixas/go_learn/concurrency"
 
@@ -43,7 +45,9 @@ func main() {
 func Execute_neetcode() {
 	// array_hashing.Execute_containsDuplicate()
 	// two_pointers.Execute_isPalindrome()
-	array_hashing.Execute_isAnagram()
+	// array_hashing.Execute_isAnagram()
 	// array_hashing.Execute_twoSum()
 	// slidingwindows.Execute_maxProfit()
+	// stack.Execute_isValid()
+	linkedlist.Execute_reverseList()
 }
