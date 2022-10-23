@@ -1,5 +1,7 @@
 package linkedlist
 
+import "fmt"
+
 // Definition for singly-linked list.
 type ListNode struct {
 	Val  int
@@ -20,16 +22,17 @@ func reverseList(head *ListNode) *ListNode {
 
 	for {
 		if current.Next != nil {
-			prev = head
 			head = head.Next
-			current = current.Next
-			next = current.Next
+			next = head
 			current.Next = prev
+			prev = current
 			current = next
 		} else {
 			break
 		}
 	}
+	// deal with tail node
+	current.Next = prev
 	return head
 }
 
@@ -50,7 +53,16 @@ func print_reverse_List(head *ListNode) []int {
 	return list_val
 }
 
-// TODO: To complete
+func reverseList2(head *ListNode) *ListNode {
+	var prev *ListNode
+	cur := head
+
+	for cur != nil {
+		prev, cur, cur.Next = cur, cur.Next, prev
+	}
+	return prev
+}
+
 func Execute_reverseList() {
 	var vals []int = []int{1, 2, 3, 4, 5}
 	var head *ListNode
@@ -64,6 +76,7 @@ func Execute_reverseList() {
 		current = current.Next
 	}
 
-	ans := reverseList(head)
-	print_reverse_List(ans)
+	ans := reverseList2(head)
+	list_vals := print_reverse_List(ans)
+	fmt.Println(list_vals)
 }

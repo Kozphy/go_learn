@@ -1,7 +1,9 @@
 package main
 
 import (
-	linkedlist "github.com/zixas/go_learn/neetcode/linked_list"
+	"github.com/zixas/go_learn/dsa/chp1"
+	// dsp "github.com/zixas/go_learn/dsa/design_pattern"
+	// linkedlist "github.com/zixas/go_learn/neetcode/linked_list"
 )
 
 // import "github.com/zixas/go_learn/concurrency"
@@ -39,7 +41,8 @@ func main() {
 	// time.Sleep(time.Second)
 	// pingpong.Execute_ping_pong_client()
 	// chat_tutorial.Execute_chat_websocket_conn()
-	Execute_neetcode()
+	// Execute_neetcode()
+	Execute_dsa_chp1()
 }
 
 func Execute_neetcode() {
@@ -49,5 +52,18 @@ func Execute_neetcode() {
 	// array_hashing.Execute_twoSum()
 	// slidingwindows.Execute_maxProfit()
 	// stack.Execute_isValid()
-	linkedlist.Execute_reverseList()
+	// linkedlist.Execute_reverseList()
+}
+
+func Execute_dsa_chp1() {
+	// chp1.Execute_lists()
+	// chp1.Exexute_Tuple()
+	// chp1.Execute_heap()
+	// chp1.Execute_divide_conquer()
+	chp1.Execute_findElementsWithSum()
+}
+
+func Execute_dsp() {
+	// dsp.Execute_Adapter()
+	// dsp.Execute_Bridge()
 }
