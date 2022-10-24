@@ -2,6 +2,7 @@ package chp1
 
 import "fmt"
 
+// tried to find the combination
 func findElementsWithSum(arr [10]int, combinations [19]int, size int, k int, addValue int, l int, m int) int {
 	var num int = 0
 	if addValue > k {

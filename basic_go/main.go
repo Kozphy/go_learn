@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/zixas/go_learn/dsa/chp1"
+	"github.com/zixas/go_learn/grind_169/week1"
 	// dsp "github.com/zixas/go_learn/dsa/design_pattern"
 	// linkedlist "github.com/zixas/go_learn/neetcode/linked_list"
 )
@@ -42,7 +43,8 @@ func main() {
 	// pingpong.Execute_ping_pong_client()
 	// chat_tutorial.Execute_chat_websocket_conn()
 	// Execute_neetcode()
-	Execute_dsa_chp1()
+	Execute_grind169()
+	// Execute_dsa_chp1()
 }
 
 func Execute_neetcode() {
@@ -66,4 +68,8 @@ func Execute_dsa_chp1() {
 func Execute_dsp() {
 	// dsp.Execute_Adapter()
 	// dsp.Execute_Bridge()
+}
+
+func Execute_grind169() {
+	week1.Execute_mergeTwoLists()
 }

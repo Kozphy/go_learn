@@ -1,6 +1,6 @@
 # Structural design patterns
 
-> last updated: 2022/10/23
+> last updated: 2022/10/24
 
 ## intro
 
@@ -31,3 +31,9 @@ The bridge patterns allow the implementation details to change at runtime.
 The bridge pattern demonstrates the principle, `preferring composition over inheritance`.
 
 Composition maintains a **_has-a_** relationship with the implementation, instead of an **_is-a_** relationship.
+
+## Composite
+
+A composite is `a group of similar objects in a single object`.
+
+Objects are stored in a tree form to persist the whole hierarchy. The composite pattern is used to change a hierarchical collection of objects. The composite pattern is modeled on a heterogeneous collection. New types of objects can be added without changing the interface and the client code.

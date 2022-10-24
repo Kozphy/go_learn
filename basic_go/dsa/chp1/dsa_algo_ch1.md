@@ -12,7 +12,7 @@ Trees, tables, and containers are categorized as `nonlinear` data structures.
 
 Two-dimensional and multidimensional arrays are grouped as `homogeneous` data structures.
 
-Dynamic data structures are dictionaries, tree sets, and sequences.
+`Dynamic data structures` are dictionaries, tree sets, and sequences.
 
 ![classification](./classification.drawio.svg)
 
@@ -57,3 +57,7 @@ Backtracking is an algorithm that `finds candidate solutions and rejects a candi
 It is useful in scenarios such as `finding a value in an unordered table`.
 
 Constraint satisfaction problems such as parsing, rules engine, knapsack problems, and combinatorial optimization `are solved using backtracking`.
+
+## Summary
+
+This chapter covered the definition of `abstract datatypes`, classifying data structures into linear, nonlinear, homogeneous, heterogeneous, and dynamic types. Abstract datatypes such as container, list, set, map, graph, stack, and queue were presented in this chapter. The chapter covered the performance analysis of data structures and structural design patterns.
