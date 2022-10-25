@@ -33,6 +33,7 @@ func Execute_findElementsWithSum() {
 	var arr = [10]int{1, 4, 7, 8, 3, 9, 2, 4, 1, 8}
 	var addedSum int = 18
 	var combinations [19]int
+	// find combinations equal to addedSum
 	check := findElementsWithSum(arr, combinations, 10, addedSum, 0, 0, 0)
 	fmt.Println(check)
 	// check2 := findElementsWithSum(arr, 9)

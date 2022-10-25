@@ -37,3 +37,10 @@ Composition maintains a **_has-a_** relationship with the implementation, instea
 A composite is `a group of similar objects in a single object`.
 
 Objects are stored in a tree form to persist the whole hierarchy. The composite pattern is used to change a hierarchical collection of objects. The composite pattern is modeled on a heterogeneous collection. New types of objects can be added without changing the interface and the client code.
+
+The composite pattern comprises the `component` interface, `component` class, composite, and client:
+
+- The `component` interface defines the default behavior of all objects and behaviors for accessing the components of the composite.
+- The `composite` and `component` classes implement the `component` interface.
+- The client interacts with the component interface to invoke methods in the
+composite.

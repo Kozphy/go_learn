@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/zixas/go_learn/dsa/chp1"
 	"github.com/zixas/go_learn/grind_169/week1"
 	// dsp "github.com/zixas/go_learn/dsa/design_pattern"
 	// linkedlist "github.com/zixas/go_learn/neetcode/linked_list"
@@ -62,7 +61,7 @@ func Execute_dsa_chp1() {
 	// chp1.Exexute_Tuple()
 	// chp1.Execute_heap()
 	// chp1.Execute_divide_conquer()
-	chp1.Execute_findElementsWithSum()
+	// chp1.Execute_findElementsWithSum()
 }
 
 func Execute_dsp() {
@@ -71,5 +70,6 @@ func Execute_dsp() {
 }
 
 func Execute_grind169() {
-	week1.Execute_mergeTwoLists()
+	// week1.Execute_mergeTwoLists()
+	week1.Execute_invertTree()
 }

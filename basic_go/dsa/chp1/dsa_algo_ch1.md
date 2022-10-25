@@ -60,4 +60,6 @@ Constraint satisfaction problems such as parsing, rules engine, knapsack problem
 
 ## Summary
 
-This chapter covered the definition of `abstract datatypes`, classifying data structures into linear, nonlinear, homogeneous, heterogeneous, and dynamic types. Abstract datatypes such as container, list, set, map, graph, stack, and queue were presented in this chapter. The chapter covered the performance analysis of data structures and structural design patterns.
+This chapter covered the definition of `abstract datatypes`, classifying data structures into linear, nonlinear, homogeneous, heterogeneous, and dynamic types.
+
+Abstract datatypes such as container, list, set, map, graph, stack, and queue were presented in this chapter. The chapter covered the performance analysis of data structures and structural design patterns.
