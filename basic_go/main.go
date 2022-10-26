@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/zixas/go_learn/grind_169/week1"
 	// dsp "github.com/zixas/go_learn/dsa/design_pattern"
+	"github.com/zixas/go_learn/grind_169/week1"
 	// linkedlist "github.com/zixas/go_learn/neetcode/linked_list"
 )
 
@@ -67,9 +67,12 @@ func Execute_dsa_chp1() {
 func Execute_dsp() {
 	// dsp.Execute_Adapter()
 	// dsp.Execute_Bridge()
+	// dsp.Execute_Composite()
 }
 
 func Execute_grind169() {
 	// week1.Execute_mergeTwoLists()
-	week1.Execute_invertTree()
+	// week1.Execute_invertTree()
+	// week1.Execute_search()
+	week1.Execute_floodFill()
 }

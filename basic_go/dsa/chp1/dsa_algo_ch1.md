@@ -1,4 +1,4 @@
-# dsa algo with go
+# dsa algo with go ch1
 
 > last updated: 2022/10/23
 
