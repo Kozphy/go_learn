@@ -29,9 +29,11 @@ var arr = [4][5] int {
 
 `Two-dimensional matrices are modeled as two-dimensional arrays`.
 
-A scalar is an element of a field that defines a vector space. A matrix can be multiplied by a scalar. You can divide a matrix by any non-zero real number.
+A **scalar is an element of a field** that defines a vector space.
 
-The order of a matrix is the number of rows, m, by the number of columns, n.
+A **matrix can be multiplied by a scalar, divided a matrix by any non-zero real number**.
+
+The order of a matrix is the number of **rows, m**, by the number of **columns, n**.
 
 A matrix with `rows m and columns n` is referred to `as` an **m x n matrix**.
 
@@ -97,3 +99,40 @@ var matrix = [3][3] int {
 ```
 
 ## Identity matrix
+
+An **identity matrix** is a unit matrix with ones **are on the main diagonal and zeros are elsewhere**.
+
+```go
+var identity_matrix = {
+    {1,0,0,0},
+    {0,1,0,0},
+    {0,0,1,0},
+    {0,0,0,1}
+}
+```
+
+## Symmetric matrix
+
+A **symmetric matrix is a matrix whose transpose is equal to itself**. Symmetric matrices include other types of matrices such as **antimetric, centrosymmetric, circulant covariance, coxeter, hankel, hilbert, persymmetric, skew-symmetric, and toeplitz matrices. A**negative matrix** is a matrix in which each element is a negative number.
+
+## Basic 2D matrix operations
+
+```go
+var matrix1 = [2][2]int{
+    {4,5}
+    {1,2}
+}
+
+var matrix2 = [2][2]int {
+    {6,7}
+    {3,4}
+}
+```
+
+### add method
+
+The **add** method adds the elements of two 2 x 2 matrices. The following code returns the created matrix by adding the two matrices:
+
+```go
+
+```

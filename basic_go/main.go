@@ -2,6 +2,7 @@ package main
 
 import (
 	// dsp "github.com/zixas/go_learn/dsa/design_pattern"
+	"github.com/zixas/go_learn/dsa/chp5"
 	"github.com/zixas/go_learn/grind_169/week1"
 	// linkedlist "github.com/zixas/go_learn/neetcode/linked_list"
 )
@@ -19,7 +20,7 @@ import (
 // "github.com/zixas/go_learn/methods"
 // "github.com/zixas/go_learn/pointer"
 
-func main() {
+func unused() {
 	// reflection.Law_reflect()
 	// concurrency.Final_state()
 	// server.Execute_server()
@@ -41,9 +42,13 @@ func main() {
 	// time.Sleep(time.Second)
 	// pingpong.Execute_ping_pong_client()
 	// chat_tutorial.Execute_chat_websocket_conn()
+}
+
+func main() {
 	// Execute_neetcode()
-	Execute_grind169()
-	// Execute_dsa_chp1()
+	// Execute_grind169()
+	// Execute_dsa_ch1()
+	Execute_dsa_chp5()
 }
 
 func Execute_neetcode() {
@@ -62,6 +67,11 @@ func Execute_dsa_chp1() {
 	// chp1.Execute_heap()
 	// chp1.Execute_divide_conquer()
 	// chp1.Execute_findElementsWithSum()
+}
+
+func Execute_dsa_chp5() {
+	// chp5.Execute_Identity()
+	chp5.Execute_Matrix_add()
 }
 
 func Execute_dsp() {
