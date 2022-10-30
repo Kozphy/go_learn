@@ -23,6 +23,8 @@ func Execute_Matrix() {
 	multiply_matrix := multiply(matrix1, matrix2)
 	fmt.Printf("multiply matrix: %v\n", multiply_matrix)
 
+	transpose_matrix := transpose(matrix1)
+	fmt.Printf("transpose matrix: %v\n", transpose_matrix)
 }
 
 func add(matrix1 [2][2]int, matrix2 [2][2]int) [2][2]int {
@@ -59,4 +61,15 @@ func multiply(matrix1 [2][2]int, matrix2 [2][2]int) [2][2]int {
 		}
 	}
 	return product
+}
+
+func transpose(matrix1 [2][2]int) [2][2]int {
+	var transMatrix [2][2]int
+
+	for l := 0; l < 2; l++ {
+		for m := 0; m < 2; m++ {
+			transMatrix[l][m] = matrix1[m][l]
+		}
+	}
+	return transMatrix
 }
