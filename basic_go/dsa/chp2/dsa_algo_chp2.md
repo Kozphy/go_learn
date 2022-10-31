@@ -81,6 +81,18 @@ var TwoDArray [8][8]int
 TwoDArray[3][6] = 18
 ```
 
+### two slice
+
+```go
+var rows int = 7
+var cols int = 9
+var twoslices = make([][]int, rows)
+for i := range twoslices {
+	twoslices[i] = make([]int, cols)
+}
+	fmt.Println(twoslices)
+```
+
 ### append method
 
 The `append` method on the slice is used to append new elements to the slice. If the slice `capacity has reached the size of the underlying array`, then append `increases the size by creating a new underlying array` and adding the new element.
@@ -93,4 +105,27 @@ var slic2 = arr[1:5]
 fmt.Println("slice2",slic2)
 var slic3 = append(slic2, 12)
 fmt.Println("slice3",slic3)
+```
+
+## Maps
+
+```go
+var languages = map[int]string {
+	3: "English",
+	4: "Franch",
+	5: "Spanish"
+}
+
+var products = make(map[int]string)
+products[1] = "chair"
+products[2] = "table"
+
+for i, v := range languages {
+	fmt.Println("language", i, ":", value)
+}
+fmt.Println("product with key 2", products[2])
+
+fmt.Println(products[2])
+delete(products, "chair")
+fmt.Println("products", products)
 ```

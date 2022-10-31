@@ -8,7 +8,7 @@ For the most part, we will utilize packages from `github.com/gonum` to form and 
 
 ### Vectors
 
-A vector is an ordered collection of numbers arranged in either a row (left to right) or column (up and down). Each of the numbers in a vector is called a component.
+A vector is an `ordered collection of numbers` arranged in either a row (left to right) or column (up and down). `Each of the numbers in a vector is called a component`.
 
 ```go
 var myvector []float64

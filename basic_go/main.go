@@ -2,6 +2,7 @@ package main
 
 import (
 	// dsp "github.com/zixas/go_learn/dsa/design_pattern"
+	"github.com/zixas/go_learn/dsa/chp2"
 	"github.com/zixas/go_learn/dsa/chp5"
 	"github.com/zixas/go_learn/grind_169/week1"
 	// linkedlist "github.com/zixas/go_learn/neetcode/linked_list"
@@ -48,6 +49,7 @@ func main() {
 	// Execute_neetcode()
 	// Execute_grind169()
 	// Execute_dsa_ch1()
+	Execute_dsa_chp2()
 	Execute_dsa_chp5()
 }
 
@@ -67,6 +69,10 @@ func Execute_dsa_chp1() {
 	// chp1.Execute_heap()
 	// chp1.Execute_divide_conquer()
 	// chp1.Execute_findElementsWithSum()
+}
+
+func Execute_dsa_chp2() {
+	chp2.Execute_two_slice()
 }
 
 func Execute_dsa_chp5() {
