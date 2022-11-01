@@ -50,7 +50,7 @@ func main() {
 	// Execute_grind169()
 	// Execute_dsa_ch1()
 	Execute_dsa_chp2()
-	Execute_dsa_chp5()
+	// Execute_dsa_chp5()
 }
 
 func Execute_neetcode() {
@@ -72,7 +72,8 @@ func Execute_dsa_chp1() {
 }
 
 func Execute_dsa_chp2() {
-	chp2.Execute_two_slice()
+	// chp2.Execute_two_slice()
+	chp2.Execute_custom()
 }
 
 func Execute_dsa_chp5() {

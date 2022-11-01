@@ -69,8 +69,8 @@ func Marshal_and_UnMarshal_test() error {
 	// Encoding
 	m := Message{"Alice", "Hello", 1294706395881547000}
 	/*
-			If all is well, err will be nil and b will be a []byte containing this JSON data:
-		 	b == []byte(`{"Name":"Alice","Body":"Hello","Time":1294706395881547000}`)
+		If all is well, err will be nil and b will be a []byte containing this JSON data:
+		b == []byte(`{"Name":"Alice","Body":"Hello","Time":1294706395881547000}`)
 	*/
 	b, err := json.Marshal(m)
 	if err != nil {
@@ -88,8 +88,8 @@ func Marshal_and_UnMarshal_test() error {
 }
 
 /*
-	 	What happens when the structure of the JSON data doesn’t exactly match the Go type?
-		Unmarshal will decode only the fields that it can find in the destination type
+What happens when the structure of the JSON data doesn’t exactly match the Go type?
+Unmarshal will decode only the fields that it can find in the destination type
 */
 func UnMarshal_not_find() error {
 	b := []byte(`{"Name":"Bob", "Food": "Pickle"}`)

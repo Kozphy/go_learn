@@ -1,6 +1,6 @@
-# dsa algo with go ch2
+# dsa algo with go chp2
 
-> last updated: 2022/10/26
+> last updated: 2022/11/01
 
 ## intro
 
