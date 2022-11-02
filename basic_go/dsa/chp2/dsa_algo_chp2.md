@@ -129,3 +129,13 @@ fmt.Println(products[2])
 delete(products, "chair")
 fmt.Println("products", products)
 ```
+
+## Variadic functions
+
+A function in which we pass an infinite number of arguments, instead of passing them one at a time, is called a `variadic function`.
+
+The type of the final parameter is preceded by an `ellipsis (...)`, while declaring a variadic function
+
+```go
+
+```
