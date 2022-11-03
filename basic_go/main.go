@@ -47,10 +47,10 @@ func unused() {
 
 func main() {
 	// Execute_neetcode()
-	// Execute_grind169()
 	// Execute_dsa_ch1()
-	Execute_dsa_chp2()
+	// Execute_dsa_chp2()
 	// Execute_dsa_chp5()
+	Execute_grind169()
 }
 
 func Execute_neetcode() {
@@ -91,5 +91,6 @@ func Execute_grind169() {
 	// week1.Execute_mergeTwoLists()
 	// week1.Execute_invertTree()
 	// week1.Execute_search()
-	week1.Execute_floodFill()
+	// week1.Execute_floodFill()
+	week1.Execute_graph_search_practice()
 }

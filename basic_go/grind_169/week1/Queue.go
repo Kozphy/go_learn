@@ -10,13 +10,17 @@ type QueueVertex struct {
 	length    int
 }
 
-func (q *QueueVertex) enqueue(element int) {
+func (q *QueueVertex) enqueue(element interface{}) {
 	NewVertex := &Vertex{value: element, visited: true}
 	q.length += 1
 	q.vertrices = append(q.vertrices, NewVertex)
 }
 
-func (q *QueueVertex) dequeue(element int) {
+func (q *QueueVertex) dequeue() {
 	q.vertrices = q.vertrices[1:]
 	q.length -= 1
+}
+
+func (q *QueueVertex) front() Vertex {
+	return *q.vertrices[0]
 }

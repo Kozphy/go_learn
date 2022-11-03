@@ -9,20 +9,31 @@ import (
 )
 
 func Execute_custom() {
+	// create table
+	// CreateCustomerTable()
+
+	// select all
 	var customers []Customer
 	customers = GetCustomers()
 	fmt.Println(customers)
 
-	var customer Customer
-	customer.CustomerName = "FHSILA"
-	customer.SSN = "2323343"
+	// insert
+	// var customer Customer
+	// customer.CustomerName = "FHSILA"
+	// customer.SSN = "2323343"
+	// InsertCustomer(customer)
 
-	InsertCustomer(customer)
-
+	// update
 	// customer.CustomerName = "Geor Thom"
 	// customer.SSN = "123412"
 	// customer.CustomerId = 2
 	// UpdateCustomer(customer)
+
+	// delete
+	// customer.CustomerName = "Geor Thom"
+	// customer.SSN = "123412"
+	// customer.CustomerId = 2
+	// DeleteCustomer(customer)
 }
 
 type Customer struct {
@@ -39,12 +50,11 @@ func GetConnection() (database *sql.DB) {
 	// Opening a driver typically will not attempt to connect to the database.
 	database, err := sql.Open(databaseDriver, databaseUser+":"+databasePass+"@/"+databaseName)
 	if err != nil {
-		panic(err.Error())
+		log.Fatalf("In GetConnection sql.Open failed: %v\n", err)
 	}
 	return database
 }
 
-// TODO: complete
 func CreateCustomerTable() {
 	var database *sql.DB
 	database = GetConnection()
@@ -52,12 +62,13 @@ func CreateCustomerTable() {
 
 	var err error
 	var res sql.Result
-	query := `CREATE TABLE IF NOT EXISTS Customer(CustomerId int primary key, CustomerName varchar(255), SSN varchar(255))`
+	query := `CREATE TABLE IF NOT EXISTS Customer(CustomerId int primary key auto_increment, CustomerName varchar(255), SSN varchar(255))`
 	res, err = database.Exec(query)
 	if err != nil {
-		log.Fatal(err.Error())
+		log.Fatalf("In CreateCustomerTable Exec failed: %v\n", err.Error())
 	}
-	res.LastInsertId()
+	resultid, err := res.LastInsertId()
+	fmt.Println(resultid)
 }
 
 func GetCustomers() []Customer {
@@ -70,7 +81,7 @@ func GetCustomers() []Customer {
 
 	rows, err = database.Query("SELECT * FROM Customer ORDER BY Customerid DESC")
 	if err != nil {
-		panic(err.Error())
+		log.Fatalf("In GetCustomers query get error: %v\n", err.Error())
 	}
 
 	var customer Customer = Customer{}
@@ -83,7 +94,7 @@ func GetCustomers() []Customer {
 		// copies database value to dest
 		err = rows.Scan(&customerId, &customerName, &ssn)
 		if err != nil {
-			panic(err.Error())
+			log.Fatalf("In GetCustomers Scan error: %v\n", err.Error())
 		}
 		customer.CustomerId = customerId
 		customer.CustomerName = customerName
@@ -95,45 +106,77 @@ func GetCustomers() []Customer {
 
 func InsertCustomer(customer Customer) {
 	var database *sql.DB
-	defer database.Close()
-
 	database = GetConnection()
+
+	defer database.Close()
 
 	var err error
 	var insert *sql.Stmt
 	insert, err = database.Prepare("INSERT INTO Customer(CustomerName, SSN) VALUES(?,?)")
 	if err != nil {
-		panic(err.Error())
+		log.Fatalf("In insertCustomer prepare stmt failed: %v\n", err)
 	}
-	insert.Exec(customer.CustomerName, customer.SSN)
+
+	var result sql.Result
+	result, err = insert.Exec(customer.CustomerName, customer.SSN)
+	if err != nil {
+		log.Fatalf("In insertCustomer Exec failed: %v\n", err)
+	}
+
+	resid, err := result.LastInsertId()
+	if err != nil {
+		log.Fatalf("In insertCustomer get failed result: %v\n", err)
+	}
+	log.Printf("Insert sucess %v\n", resid)
 }
 
 func UpdateCustomer(customer Customer) {
 	var database *sql.DB
+	database = GetConnection()
 
 	defer database.Close()
-	database = GetConnection()
 
 	var err error
 	var update *sql.Stmt
-	update, err = database.Prepare("UPDATE CUSTOMER SET CustomerName=?, SSN=? WHERE CustomerId=?")
+	update, err = database.Prepare("UPDATE Customer SET CustomerName=?, SSN=? WHERE CustomerId=?")
 	if err != nil {
-		panic(err.Error())
+		log.Fatalf("In UpdateCustomer prepare err: %v\n", err.Error())
 	}
-	update.Exec(customer.CustomerName, customer.SSN, customer.CustomerId)
+
+	var result sql.Result
+	result, err = update.Exec(customer.CustomerName, customer.SSN, customer.CustomerId)
+	if err != nil {
+		log.Fatalf("In UpdateCustomer Exec err: %v\n", err.Error())
+	}
+
+	resid, err := result.LastInsertId()
+	if err != nil {
+		log.Fatalf("In UpdateCustomer res err: %v\n", err.Error())
+	}
+	log.Printf("In UpdateCustomer update success: %v\n", resid)
 }
 
 func DeleteCustomer(customer Customer) {
 	var database *sql.DB
+	database = GetConnection()
 
 	defer database.Close()
-	database = GetConnection()
 
 	var err error
 	var delete *sql.Stmt
 	delete, err = database.Prepare("DELETE FROM Customer WHERE Customerid=?")
 	if err != nil {
-		panic(err.Error())
+		log.Fatalf("In DeleteCustomer Prepare err: %v\n", err.Error())
 	}
-	delete.Exec(customer.CustomerId)
+
+	var result sql.Result
+	result, err = delete.Exec(customer.CustomerId)
+	if err != nil {
+		log.Fatalf("In DeleteCustomer Exec err: %v\n", err.Error())
+	}
+	resid, err := result.LastInsertId()
+	if err != nil {
+		log.Fatalf("In DeleteCustomer get reuslt err: %v\n", err.Error())
+	}
+	log.Printf("In DeleteCustomer Delete success %v\n", resid)
 }
