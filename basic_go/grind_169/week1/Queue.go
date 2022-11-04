@@ -10,7 +10,7 @@ type QueueVertex struct {
 	length    int
 }
 
-func (q *QueueVertex) enqueue(element interface{}) {
+func (q *QueueVertex) enqueue(element int) {
 	NewVertex := &Vertex{value: element, visited: true}
 	q.length += 1
 	q.vertrices = append(q.vertrices, NewVertex)
