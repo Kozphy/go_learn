@@ -52,3 +52,67 @@ func (linkedList *LinkedList) AddToHead(property int) {
 	linkedList.headNode = node
 }
 ```
+
+### LastNode method
+
+```go
+func (linkedList *LinkedList) LastNode() *Node {
+	var node *Node
+	var lastNode *Node
+	for node = linkedList.headNode; node != nil; node = node.nextNode {
+		if node.nextNode == nil {
+			lastNode = node
+		}
+	}
+	return lastNode
+}
+```
+
+### AddToEnd method
+
+```go
+func (linkedList *LinkedList) AddToEnd(property int) {
+	var node = &Node{}
+	node.property = property
+	node.nextNode = nil
+
+	var lastNode *Node = linkedList.LastNode()
+
+	if lastNode != nil {
+		lastNode.nextNode = node
+	}
+}
+```
+
+### NodeWithValue method
+
+```go
+// traversed and checked to see whether the "property" value is equal to parameter.
+func (linkedList *LinkedList) NodeWithValue(property int) *Node {
+	var node *Node
+	var nodeWith *Node
+	for node = linkedList.headNode; node != nil; node = node.nextNode {
+		if node.property == property {
+			nodeWith = node
+			break
+		}
+	}
+	return nodeWith
+}
+```
+
+### AddAfter method
+
+```go
+func (linkedList *LinkedList) AddAfter(nodeProperty int, property int) {
+	var node = &Node{}
+	node.property = property
+	node.nextNode = nil
+
+	var nodeWith *Node = linkedList.NodeWithValue(nodeProperty)
+	if nodeWith != nil {
+		node.nextNode = nodeWith.nextNode
+		nodeWith.nextNode = node
+	}
+}
+```
