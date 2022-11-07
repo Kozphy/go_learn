@@ -74,7 +74,8 @@ func Execute_dsa_chp1() {
 }
 
 func Exec_dsa_chp3() {
-	chp3.Exec_linkList()
+	// chp3.Exec_linkList()
+	chp3.Exec_Set()
 }
 
 func Execute_dsa_chp2() {

@@ -29,90 +29,14 @@ type Node struct {
 
 ### The LinkList class
 
-```go
-// LinkedList class
-type LinkedList struct {
-    headNode *Node
-}
-```
+`LinkedList` is **a sequence of nodes that have properties and a reference to the next node** in the sequence. It is a linear data structure that is used to store data.
 
-### AddToHead method
+## Doubly linked list
 
-The `AddToHead` method adds the node to the start of the linked list.
+[double_linked_list](https://pkg.go.dev/container/list)
 
-```go
-// AddToHead method
-func (linkedList *LinkedList) AddToHead(property int) {
-	var node = &Node{}
-	node.property = property
-	node.nextNode = nil
-	if linkedList.headNode != nil {
-		node.nextNode = linkedList.headNode
-	}
-	linkedList.headNode = node
-}
-```
+## Sets
 
-### LastNode method
+A `Set` is a linear data structure that has a collection of values that are **not repeated**. A set can store unique values **without any particular order**.
 
-```go
-func (linkedList *LinkedList) LastNode() *Node {
-	var node *Node
-	var lastNode *Node
-	for node = linkedList.headNode; node != nil; node = node.nextNode {
-		if node.nextNode == nil {
-			lastNode = node
-		}
-	}
-	return lastNode
-}
-```
-
-### AddToEnd method
-
-```go
-func (linkedList *LinkedList) AddToEnd(property int) {
-	var node = &Node{}
-	node.property = property
-	node.nextNode = nil
-
-	var lastNode *Node = linkedList.LastNode()
-
-	if lastNode != nil {
-		lastNode.nextNode = node
-	}
-}
-```
-
-### NodeWithValue method
-
-```go
-// traversed and checked to see whether the "property" value is equal to parameter.
-func (linkedList *LinkedList) NodeWithValue(property int) *Node {
-	var node *Node
-	var nodeWith *Node
-	for node = linkedList.headNode; node != nil; node = node.nextNode {
-		if node.property == property {
-			nodeWith = node
-			break
-		}
-	}
-	return nodeWith
-}
-```
-
-### AddAfter method
-
-```go
-func (linkedList *LinkedList) AddAfter(nodeProperty int, property int) {
-	var node = &Node{}
-	node.property = property
-	node.nextNode = nil
-
-	var nodeWith *Node = linkedList.NodeWithValue(nodeProperty)
-	if nodeWith != nil {
-		node.nextNode = nodeWith.nextNode
-		nodeWith.nextNode = node
-	}
-}
-```
+In the real world, sets can be used to collect all tags for blog posts and conversation participants in a chat.
