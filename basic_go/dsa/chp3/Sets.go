@@ -27,6 +27,20 @@ func (set *Set) DeleteElement(element int) {
 	delete(set.integerMap, element)
 }
 
+// Intersect method returns the set which intersects with anotherSet
+func (set *Set) Interset(anotherSet *Set) *Set {
+	var intersectSet = &Set{}
+	var value int
+	intersectSet.New()
+
+	for value, _ = range set.integerMap {
+		if anotherSet.ContainsElement(value) {
+			intersectSet.AddElement(value)
+		}
+	}
+	return intersectSet
+}
+
 func Exec_Set() {
 	var set *Set
 	set = &Set{}

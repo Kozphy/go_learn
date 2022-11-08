@@ -13,23 +13,9 @@ A list is a `collection of ordered elements` that are used to store list of item
 
 ## LinkList
 
-`LinkedList` is a sequence of nodes that have properties and a reference to the next node in the sequence. It is a linear data structure that is used to store data.
+`LinkedList` is **a sequence of nodes that have properties and a reference to the next node** in the sequence. It is a linear data structure that is used to store data.
 
 They are `not stored contiguously in memory`, which makes them different arrays.
-
-### Node class
-
-```go
-// Node class
-type Node struct {
-    property int
-    nextNode *Node
-}
-```
-
-### The LinkList class
-
-`LinkedList` is **a sequence of nodes that have properties and a reference to the next node** in the sequence. It is a linear data structure that is used to store data.
 
 ## Doubly linked list
 
