@@ -26,3 +26,21 @@ They are `not stored contiguously in memory`, which makes them different arrays.
 A `Set` is a linear data structure that has a collection of values that are **not repeated**. A set can store unique values **without any particular order**.
 
 In the real world, sets can be used to collect all tags for blog posts and conversation participants in a chat.
+
+## Tuples
+
+Tuples are **finite ordered sequences of objects**. They **can contain a mixture of other data types and are used to group related data into a data structure**.
+
+In a relational database, a tuple is a row of a table. Tuples have a fixed size compared to lists, and are also faster. A finite set of tuples in the relational database is referred to as a relation instance.
+
+A **tuple** can be assigned in a single statement, which is **useful for swapping values**.
+
+**Lists** usually contain values of the same data type, while **tuples contain different data**.
+
+## Queues
+
+A queue **consists of elements to be processed in a particular order or based on priority**.
+
+A **priority-based queue of orders** is shown in the following code, structured as a **heap**.
+
+Operations such as enqueue, dequeue, and peek can be performed on queue. A queue is a **linear data structure and a sequential collection**.
