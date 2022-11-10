@@ -44,3 +44,13 @@ A queue **consists of elements to be processed in a particular order or based on
 A **priority-based queue of orders** is shown in the following code, structured as a **heap**.
 
 Operations such as enqueue, dequeue, and peek can be performed on queue. A queue is a **linear data structure and a sequential collection**.
+
+Queues are commonly used for **storing tasks that need to be done**, or **incoming HTTP requests that need to be processed by a server**.
+
+In real life, **handling interruptions in real-time systems, call handling, and CPU task scheduling** are good examples for using queues.
+
+### Add method
+
+The `Add` method on the `Queue` class takes the `order` parameter and adds it to `Queue` **based on the priority**.
+
+Based on this, the location of the `order` parameter **is found by comparing it with the priority parameter**:
