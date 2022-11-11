@@ -54,3 +54,7 @@ In real life, **handling interruptions in real-time systems, call handling, and 
 The `Add` method on the `Queue` class takes the `order` parameter and adds it to `Queue` **based on the priority**.
 
 Based on this, the location of the `order` parameter **is found by comparing it with the priority parameter**:
+
+## Synchronized queue
+
+A synchronized queue consists of elements that need to be processed in a particular sequence.

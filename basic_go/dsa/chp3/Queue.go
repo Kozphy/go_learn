@@ -29,6 +29,7 @@ func (queue *Queue) Add(order *Order) {
 		var i int
 		var addedOrder *Order
 		for i, addedOrder = range *queue {
+			// order of priority is big to small.
 			if order.priority > addedOrder.priority {
 				*queue = append((*queue)[:i], append(Queue{order}, (*queue)[i:]...)...)
 				appended = true
