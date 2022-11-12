@@ -1,5 +1,11 @@
 package chp3
 
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
 const (
 	messagePassStart = iota
 	messageTicketStart
@@ -50,4 +56,29 @@ func (queue *Queue_sync) New() {
 			}
 		}
 	}()
+}
+
+// StartTicketIssue starts the ticket issue
+func (queue *Queue_sync) StartTicketIssue() {
+	queue.message <- messageTicketStart
+	<-queue.queueTicket
+}
+
+// EndTicketIssue ends the ticket issue
+func (queue *Queue_sync) EndTicketIssue() {
+	queue.message <- messageTicketEnd
+}
+
+// ticketIssue starts and ends the ticket issue
+func ticketIssue(Queue *Queue_sync) {
+	for {
+		// Sleep up to 10 seconds.
+		time.Sleep(time.Duration(rand.Intn(10000)) * time.Millisecond)
+		Queue.StartTicketIssue()
+		fmt.Println("Ticket Issue starts")
+		// Sleep up to 2 seconds.
+		time.Sleep(time.Duration(rand.Intn(2000)) * time.Millisecond)
+		fmt.Println("Ticket Issue ends")
+		Queue.EndTicketIssue()
+	}
 }
