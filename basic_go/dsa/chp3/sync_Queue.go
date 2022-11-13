@@ -82,3 +82,9 @@ func ticketIssue(Queue *Queue_sync) {
 		Queue.EndTicketIssue()
 	}
 }
+
+// StartPass ends the Pass Queue
+func (Queue *Queue_sync) StartPass() {
+	Queue.message <- messagePassStart
+	<-Queue.queuePass
+}
