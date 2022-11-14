@@ -88,3 +88,24 @@ func (Queue *Queue_sync) StartPass() {
 	Queue.message <- messagePassStart
 	<-Queue.queuePass
 }
+
+// EndPass ends the Pass Queue
+func (Queue *Queue_sync) EndPass() {
+	Queue.message <- messagePassEnd
+}
+
+// passengr method starts and ends the pass Queue
+func passenger(Queue *Queue_sync) {
+	fmt.Println("starting the passenger Queue")
+	for {
+		fmt.Println("starting the processing")
+		// Sleep up to 10 seconds.
+		time.Sleep(time.Duration(rand.Intn(10000)) * time.Millisecond)
+		Queue.StartPass()
+		fmt.Println("Passenger starts")
+		// Sleep up to 2 seconds.
+		time.Sleep(time.Duration(rand.Intn(2000)) * time.Millisecond)
+		fmt.Println("Passenger ends")
+		Queue.EndPass()
+	}
+}

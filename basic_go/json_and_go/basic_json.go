@@ -5,7 +5,8 @@ package json
 
 	Marshal:
 	Only data structures that can be represented as valid JSON will be encoded:
-	JSON objects only support strings as keys; to encode a Go map type it must be of the form map[string]T (where T is any Go type supported by the json package).
+	JSON objects only support strings as keys;
+	to encode a Go map type it must be of the form map[string]T (where T is any Go type supported by the json package).
 
 	Channel, complex, and function types cannot be encoded.
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	// dsp "github.com/zixas/go_learn/dsa/design_pattern"
+	"github.com/jmoiron/sqlx"
 	"github.com/zixas/go_learn/dsa/chp2"
 	"github.com/zixas/go_learn/dsa/chp3"
 	"github.com/zixas/go_learn/dsa/chp5"
