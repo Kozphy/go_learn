@@ -109,3 +109,21 @@ func passenger(Queue *Queue_sync) {
 		Queue.EndPass()
 	}
 }
+
+func Exec_sync_Queue() {
+	var queue *Queue_sync
+	queue.New()
+	fmt.Println(queue)
+
+	var i int
+	for i = 0; i < 10; i++ {
+		go passenger(queue)
+	}
+
+	var j int
+	for j = 0; j < 5; j++ {
+		go ticketIssue(queue)
+	}
+
+	select {}
+}
