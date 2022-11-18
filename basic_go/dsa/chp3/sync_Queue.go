@@ -45,14 +45,14 @@ func (queue *Queue_sync) New() {
 				case messageTicketEnd:
 					queue.playTicket = false
 				}
-			}
-			if queue.waitPass > 0 && queue.waitTicket > 0 && !queue.playPass && !queue.playTicket {
-				queue.playPass = true
-				queue.playTicket = true
-				queue.waitTicket--
-				queue.waitPass--
-				queue.queuePass <- 1
-				queue.queueTicket <- 1
+				if queue.waitPass > 0 && queue.waitTicket > 0 && !queue.playPass && !queue.playTicket {
+					queue.playPass = true
+					queue.playTicket = true
+					queue.waitTicket--
+					queue.waitPass--
+					queue.queuePass <- 1
+					queue.queueTicket <- 1
+				}
 			}
 		}
 	}()
@@ -69,7 +69,7 @@ func (queue *Queue_sync) EndTicketIssue() {
 	queue.message <- messageTicketEnd
 }
 
-// ticketIssue starts and ends the ticket issue
+// ticketIssue starts and finishes the issuing of ticket to the passenger
 func ticketIssue(Queue *Queue_sync) {
 	for {
 		// Sleep up to 10 seconds.
@@ -94,24 +94,24 @@ func (Queue *Queue_sync) EndPass() {
 	Queue.message <- messagePassEnd
 }
 
-// passengr method starts and ends the pass Queue
-func passenger(Queue *Queue_sync) {
+// starts and ends passenger movement to the queue.
+func passenger(queue *Queue_sync) {
 	fmt.Println("starting the passenger Queue")
 	for {
 		fmt.Println("starting the processing")
 		// Sleep up to 10 seconds.
 		time.Sleep(time.Duration(rand.Intn(10000)) * time.Millisecond)
-		Queue.StartPass()
+		queue.StartPass()
 		fmt.Println("Passenger starts")
 		// Sleep up to 2 seconds.
 		time.Sleep(time.Duration(rand.Intn(2000)) * time.Millisecond)
 		fmt.Println("Passenger ends")
-		Queue.EndPass()
+		queue.EndPass()
 	}
 }
 
 func Exec_sync_Queue() {
-	var queue *Queue_sync
+	var queue *Queue_sync = &Queue_sync{}
 	queue.New()
 	fmt.Println(queue)
 

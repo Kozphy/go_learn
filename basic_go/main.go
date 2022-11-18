@@ -2,7 +2,6 @@ package main
 
 import (
 	// dsp "github.com/zixas/go_learn/dsa/design_pattern"
-	"github.com/jmoiron/sqlx"
 	"github.com/zixas/go_learn/dsa/chp2"
 	"github.com/zixas/go_learn/dsa/chp3"
 	"github.com/zixas/go_learn/dsa/chp5"
@@ -77,7 +76,8 @@ func Execute_dsa_chp1() {
 func Exec_dsa_chp3() {
 	// chp3.Exec_linkList()
 	// chp3.Exec_Set()
-	chp3.Exec_Queue()
+	// chp3.Exec_Queue()
+	chp3.Exec_sync_Queue()
 }
 
 func Execute_dsa_chp2() {
