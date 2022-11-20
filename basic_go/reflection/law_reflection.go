@@ -16,29 +16,9 @@ func Law_reflect() {
 	Reflect_second_law()
 	Reflect_third_law()
 	Struct_with_reflect()
-
 }
 
-// article source: https://go.dev/blog/laws-of-reflection
-
-/*
-
-	Reflection in computing is the ability of a program to examine its own structure, particularly through types;
-	it’s a form of metaprogramming.
-
-*/
-
 // Types and interfaces
-/*
-	If we declare following, then  i has type int and j has type MyInt.
-	The variables i and j have distinct static types and,
-	although they have the same underlying type,
-	they cannot be assigned to one another without a conversion.
-
-	An interface variable can store any concrete (non-interface) value as long as
-	that value implements the interface’s methods.
-
-*/
 func Type_and_interface() {
 	type MyInt int
 
@@ -57,21 +37,6 @@ func Type_and_interface() {
 }
 
 // The representation of and interface
-/*
-	A variable of interface type stores a pair: the concrete value assigned to the variable,
-	and that value’s type descriptor.
-
-	To be more precise, the value is the underlying concrete data item that
-	implements the interface and the type describes the full type of that item.
-
-*/
-/*
-	r contains, schematically, the (value, type) pair, (tty, *os.File).
-	Notice that the type *os.File implements methods other than Read;
-	even though the interface value provides access only to the Read method,
-	the value inside carries all the type information about that value.
-*/
-
 func Repre_interface() (interface{}, error) {
 	var r io.Reader
 	tty, err := os.OpenFile("/dev/tty", os.O_RDWR, 0)

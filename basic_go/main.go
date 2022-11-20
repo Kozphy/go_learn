@@ -5,6 +5,7 @@ import (
 	"github.com/zixas/go_learn/dsa/chp2"
 	"github.com/zixas/go_learn/dsa/chp3"
 	"github.com/zixas/go_learn/dsa/chp5"
+	"github.com/zixas/go_learn/reflection"
 	// linkedlist "github.com/zixas/go_learn/neetcode/linked_list"
 )
 
@@ -22,7 +23,7 @@ import (
 // "github.com/zixas/go_learn/pointer"
 
 func unused() {
-	// reflection.Law_reflect()
+	reflection.Law_reflect()
 	// concurrency.Final_state()
 	// server.Execute_server()
 	// concurrency.Execute_timeout_digitoc()
@@ -45,6 +46,10 @@ func unused() {
 	// chat_tutorial.Execute_chat_websocket_conn()
 }
 
+type S struct {
+	Position string `persistence:"position"`
+}
+
 func main() {
 	// Execute_neetcode()
 	// Execute_dsa_ch1()
@@ -52,7 +57,8 @@ func main() {
 	// Execute_dsa_chp5()
 	// Execute_grind169()
 	// chp3.Exec_linkList()
-	Exec_dsa_chp3()
+	// Exec_dsa_chp3()
+	unused()
 }
 
 func Execute_neetcode() {

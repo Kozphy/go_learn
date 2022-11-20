@@ -11,3 +11,7 @@ Major additional concepts are
 - Marshal rows into structs (with embedded struct support), maps, and slices
 - Named parameter support including prepared statements
 - `Get` and `Select` to go quickly from query to struct/slice
+
+`DB.Connx` returns an `sqlx.Conn`, which is an `sql.Conn`-alike consistent with sqlx's wrapping of other types.
+
+`BindDriver` allows users to control the bindvars that sqlx will use for drivers, and add new drivers at runtime.
