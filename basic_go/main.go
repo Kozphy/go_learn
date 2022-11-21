@@ -2,6 +2,7 @@ package main
 
 import (
 	// dsp "github.com/zixas/go_learn/dsa/design_pattern"
+
 	"github.com/zixas/go_learn/dsa/chp2"
 	"github.com/zixas/go_learn/dsa/chp3"
 	"github.com/zixas/go_learn/dsa/chp5"
@@ -46,10 +47,6 @@ func unused() {
 	// chat_tutorial.Execute_chat_websocket_conn()
 }
 
-type S struct {
-	Position string `persistence:"position"`
-}
-
 func main() {
 	// Execute_neetcode()
 	// Execute_dsa_ch1()
@@ -58,7 +55,8 @@ func main() {
 	// Execute_grind169()
 	// chp3.Exec_linkList()
 	// Exec_dsa_chp3()
-	unused()
+	// unused()
+
 }
 
 func Execute_neetcode() {

@@ -10,9 +10,9 @@ Reflection in computing is the ability of a program to examine its own structure
 
 ## Types and interfaces
 
-If we declare following, then  i has type int and j has type MyInt.
+If we declare following, then `i` has type `int` and `j` has type `MyInt`.
 
-The variables i and j have distinct static types and, **although they have the same underlying type, they cannot be assigned to one another without a conversion**.
+The variables `i` and `j` have distinct static types and, **although they have the same underlying type, they cannot be assigned to one another without a conversion**.
 
 An interface variable can store any concrete (non-interface) value as long as that value implements the interface’s methods.
 
@@ -35,7 +35,7 @@ func Type_and_interface() {
 }
 ```
 
-## The representation of and interface
+## The representation of an interface
 
 A variable of interface type `stores a pair`: the **concrete value assigned to the variable, and that value’s type descriptor**.
 
@@ -80,13 +80,11 @@ When we call `reflect.TypeOf(x)`, x is first stored in an empty interface, which
 
 The `“getter”` and `“setter”` methods of Value operate on the largest type that can hold the value: int64 for all the signed integers.
 
-For instance. That is, the Int method of Value returns an int64 and the SetInt value takes an int64;
-
-`Kind` of a reflection object **describes the underlying type**, not the static type.
+For instance. That is, the Int method of Value returns an int64 and the SetInt value takes an int64; `Kind` of a reflection object **describes the underlying type**, not the static type.
 
 If a reflection object contains a value of a user-defined integer type, as in the "Kind" of v is still reflect.Int, even though the static type of x is MyInt, not int.
 
-In other words, the "Kind" cannot discriminate an int from a MyInt even though the Type can.
+In other words, the **"Kind" cannot discriminate an int from a MyInt** even though the Type can.
 
 ```go
 func Reflect_first_law() {
@@ -152,9 +150,9 @@ Settability is determined by whether the reflection object holds the original it
 
 **If we want to modify x by reflection**, we must **give the reflection library** a **pointer** to the value we want to modify.
 
-The reflection object p isn't settable, but it's not p we want to set, it's *p.
+The reflection object `p` isn't settable, but it's not `p` we want to set, it's `*p`.
 
-To get to what p points to, we call the "Elem" method of Value, which indirects through the pointer, and save the result in a reflection Value called v.
+To get to what `p` points to, we call the **"Elem" method of Value, which indirects through the pointer**, and save the result in a reflection Value called v.
 
 Keep in mind that **reflection Values need the address of something in order to modify what they represent**.
 
