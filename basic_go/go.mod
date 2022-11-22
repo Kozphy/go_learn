@@ -11,4 +11,6 @@ require (
 	golang.org/x/tour v0.1.0
 )
 
+require github.com/lib/pq v1.10.7 // indirect
+
 replace example.com/hello => ../hello
