@@ -25,8 +25,6 @@ A **DB** instance is not a connection, but an abstraction representing a Databas
 
 It maintains a `connection pool` internally, and will attempt to connect when a connection is first needed.
 
-In some situation
-
 ## The Connection Pool
 
 `Statement preparation` and `query execution` require a connection, and the DB object will manage a pool of them so that **it can be safely used for concurrent querying**.
@@ -39,3 +37,17 @@ There are two ways to control the size of the connection pool as of Go 1.2:
 **By default, the pool grows unbounded**, and connections will be created whenever there isn't a free connection available in the pool.
 
 You can use **DB.SetMaxOpenConns** to set the **maximum size of the pool**.
+
+Connections that are **not being used are marked idle** and then closed if they aren't required.
+
+To avoid making and closing lots of connections, **set the maximum idle size with DB.SetMaxIdleConns** to a size that is sensible for your query loads.
+
+It is easy to **get into trouble** by accidentally holding on to connections. **To prevent** this:
+
+- Ensure you **Scan()** every Row object
+- Ensure you either **Close()** or fully-iterate via **Next()** every Rows object
+- Ensure every transaction returns its connection via **Commit()** or **Rollback()**
+
+**If you neglect to do one of these things, the connections they use may be held until garbage collection**, and your db will end up creating far more connections at once in order to compensate for the ones its using.
+
+Note that **Rows.Close()** `can be called multiple times safely`, so do not fear calling it where it might not be necessary.

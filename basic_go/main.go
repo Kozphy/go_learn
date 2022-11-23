@@ -3,10 +3,10 @@ package main
 import (
 	// dsp "github.com/zixas/go_learn/dsa/design_pattern"
 
+	"github.com/zixas/go_learn/database/sqlx"
 	"github.com/zixas/go_learn/dsa/chp2"
 	"github.com/zixas/go_learn/dsa/chp3"
 	"github.com/zixas/go_learn/dsa/chp5"
-	"github.com/zixas/go_learn/reflection"
 	// linkedlist "github.com/zixas/go_learn/neetcode/linked_list"
 )
 
@@ -24,7 +24,7 @@ import (
 // "github.com/zixas/go_learn/pointer"
 
 func unused() {
-	reflection.Law_reflect()
+	// reflection.Law_reflect()
 	// concurrency.Final_state()
 	// server.Execute_server()
 	// concurrency.Execute_timeout_digitoc()
@@ -56,7 +56,7 @@ func main() {
 	// chp3.Exec_linkList()
 	// Exec_dsa_chp3()
 	// unused()
-
+	sqlx.Exec_Connect()
 }
 
 func Execute_neetcode() {

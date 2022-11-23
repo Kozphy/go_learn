@@ -37,11 +37,12 @@ func Exec_Connect() {
 	var db *sqlx.DB
 	var err error
 	db_name := "mysql"
-	db_url := "root:root@tcp(127.0.0.1:3306/hello)"
+	db_url := "root:root@tcp(127.0.0.1:3306)"
+	database := "/hello"
 
-	db, err = sqlx.Connect(db_name, db_url)
+	db, err = sqlx.Connect(db_name, db_url+database)
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	db.Ping()
 }
