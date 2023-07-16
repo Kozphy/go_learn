@@ -4,7 +4,7 @@
 
 ## Matrices and vectors
 
-For the most part, we will utilize packages from `github.com/gonum` to form and work with matrices and vectors
+For the most part, we will utilize packages from `github.com/gonum` to form and work with `matrices` and `vectors`
 
 ### Vectors
 
